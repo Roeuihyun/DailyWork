@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 /**
  * @author Administrator
  * 10진수를 입력 받아 2진수, 8진수, 16진수로 변환해서 출력하는 순서도를 작성하시오. 
- * 단, 진수표시에 사용될 0~9,A,B,C,D,E,F는 A(16) 배열에 저장되어 있다고 가정한다.
+ * 단, 진수표시에 사용될 0~9,A,B,C,D,E,F는 A(16) 배열에 저장되어 있다고 가정한다.1111
  */
 public class Section015_01 {
 
