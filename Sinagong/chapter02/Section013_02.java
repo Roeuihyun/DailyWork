@@ -36,7 +36,7 @@ public class Section013_02 {
 				
 				MOK = (int)(B/2);
 				NMG = B - MOK * 2;
-				A[10-C] = NMG;
+				A[9-C] = NMG;
 				
 				if(MOK == 0){
 					break;
@@ -49,11 +49,9 @@ public class Section013_02 {
 			
 			System.out.println("최초 입력한 10진수는 " + BB);
 			System.out.print("출력될 2진수는 ");
-			for(int i = 0; i <= C; i ++){
+			for(int i = 0; i < 10; i ++){
 				System.out.print(A[i]);
 			}
-			
-			
 			
 		} catch (IOException e) {
 			e.printStackTrace();
