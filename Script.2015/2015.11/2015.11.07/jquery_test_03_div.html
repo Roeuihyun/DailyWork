@@ -1,0 +1,113 @@
+<!-- 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+jquery_test_03_div.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	=>중요 단어에 마우스를 대면 단어를 설명하는 [div 태그 영역]이 뜨고, 마우스를 빼면 사라진다.
+	=>div 태그의 속성값 사용법에 주의한다.
+ -->
+ 
+ <html>
+	<head>
+		<style type="text/css">
+			/**************************************************/
+			/* a 태그의 CSS 설정 */
+			/**************************************************/
+			a{ 
+				text-decoration: none; 
+				color: #CC0000; 
+				font-style:italic; 
+				font-weight:bold;
+			}
+			/**************************************************/
+			/* class="tip" 이 들어 있는 태그의 CSS 설정 */
+			/**************************************************//*margin:0;*/
+			.tip{
+				background-color: #000000;
+				color:white;
+				position:absolute;
+				padding : 10px 10px 10px 10px;
+				font-size:12;
+			}
+		</style>
+		<script type="text/javascript" src="jquery-1.6.2.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				//---------------------------------------------------------
+				
+				//class="tip" 가진 놈 숨김.현재 class="tip" 가진 놈은 설명팝업화면이다.
+
+				//---------------------------------------------------------
+				$(".tip").hide( );
+				//---------------------------------------------------------
+				//a태그에 마우스 대면 class="tip ~"을 가진 태그가 보이고,빼면사라지게한다.
+				//---------------------------------------------------------
+				$("a").hover(
+					function(){
+						var word = $(this).text().trim();
+						$(".tip").filter("."+word).show().css({
+							"top" :event.clientY+10,
+							"left" :event.clientX+10
+						});
+					},
+					function(){
+						//$(".tip").hide( );
+						// 지정한 시간뒤에 사라지게 하려면 다음 코딩으로 대체한다.
+						setTimeout( function(){ $(".tip").hide(); }, 3000 );
+						//setTimeout( '$(".tip").hide()', 3000 );
+					}
+				);
+				//  $(선택자).hover( function(){코드1}, function(){코드2} ); 는 아래와 동일
+				//  $(선택자).mouseover( function(){코드1} ).mouseout( function(){코드2} );
+
+			});
+		</script>
+
+
+	</head>
+	<!-- 
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	jquery_test_03_div.html
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+	-->
+	<body>
+		<!---------------------------------------------------------------->
+		<p>
+			<h4>1. Java</h4>
+			●가전 전자 제품에 들어가는 칩의 프로그램을 제어할 수 있는 언어인 
+			<a href="#imsi" class="OAK"> OAK </a>를 발전시킨 언어이다.<br><br>
+			●1995년에 [Sun Micro Systems]에 의해 소개되었다.<br><br><br><br>
+
+			<h4>2. Java 특징</h4>
+			●<a href="#imsi" class="Platform">Platform</a>과 무관하게 동일하게 실행되므로 Platform에 독립적 이다. 
+		</p>
+		<!---------------------------------------------------------------->
+		<div class="tip OAK"> <!-- <div class="tip" class="OAK"> -->
+				▶OAK<br>
+				-1990년 초 마이크로시스템즈(Sun Microsystems) 엔지니어 그룹의 [제임스 고슬링] 팀에서 개발되었다.<br>
+				-다양한 가전제품에서 동일하게 실행되는 간단한 언어이다.
+		</div>
+		<!---------------------------------------------------------------->
+		<div class="tip Platform">
+				▶Platform(플랫폼)<br>
+				-프로그램을 실행시킬 수 있는 하드웨어나 소프트웨어적 환경을 말한다.
+		</div>
+		<!---------------------------------------------------------------->
+	</body>
+</html>
+
+
+<!-- 
+
+				/*$("a").mouseover(function(){
+					var word =  $(this).text();
+					$(".tip").filter("."+word).show().css({  // $(".tip."+word) 도 가능
+						"top": event.clientY+10,    // event.clientY => mouseover 이벤트 발생 위치의 Y 좌표
+						"left": event.clientX+10     // event.clientX => mouseover 이벤트 발생 위치의 X 좌표
+					});
+				}).mouseout(function(){
+					$(".tip").hide( );
+					// 지정한 시간뒤에 사라지게 하려면 다음 코딩으로 대체한다.
+						// setTimeout( function(){ $(".tip").hide(); }, 3000 );
+				});*/
+
+-->

@@ -1,0 +1,188 @@
+
+<!-- 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+jquery_test_30_1_animation.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	=>각종 이벤트를 jQuery 를 사용하여 걸어보자.
+	=>에니메이션 동작 관련 메소드를 사용하자.
+-->
+<html>
+	<meta charset="utf-8">
+	<head>
+		<!--  CSS 설정. -->
+		<style>
+			.css1{
+				cursor: pointer; /*crosshair  pointer*/
+				color: blue; 
+				width: 70px; 
+				text-align: center; 
+				border: 1px solid;
+				font-weight:bold;
+				background-color:cyan;
+				font-style:italic;
+				/*
+				width:10px;
+				float:left;
+				margin :5px;
+				*/
+			}
+		</style>
+		<script src="jquery-1.6.2.min.js" type="text/javascript"></script>
+		<script type="text/javascript">
+
+		$(document).ready(function( ) { 
+			// class=player1 이 있는 태그에 mouseover 라는 이벤트를 걸겠다.
+			$('.player1').bind('mouseover', function( ){
+				$('.player1').addClass( 'css1' ); //$('.player1') 은 $(this) 과 동일.
+				$('#msg').text( 
+					$(this).text( ) + '에 mouseover 이벤트 발생!'
+				); //$(this).next( ).text( ~ ); 과 동일.
+			});
+
+			// class=player1 이 있는 태그에 mouseout 라는 이벤트를 걸겠다.
+			$('.player1').bind('mouseout', function( ){
+				$('.player1').removeClass( 'css1' );
+				$('#msg').text( $(this).text( ) + '에 mouseout 이벤트 발생!');
+			});
+
+			// class=player1 이 있는 태그에 click 라는 이벤트를 걸겠다.
+			$('.player1').bind('click', function( ){
+				$('#msg').text( $(this).text( ) + '에 click 이벤트 발생!');
+			});
+
+
+
+
+			// class=player2 이 있는 태그에 mouseover, mouseout 이벤트를 걸겠다.
+			$('.player2').hover(
+				function( ){ 
+					$('.player2').addClass( 'css1' ); 
+					$('#msg').text( $(this).text( ) + '에 홀수번째 hover 이벤트 발생!');
+				}
+				,function( ){ 
+					$('.player2').removeClass( 'css1' ); 
+					$('#msg').text( $(this).text( ) + '에 짝수번째 hover 이벤트 발생!');
+				}
+			);
+			// class="player2" 에 마우스 버튼 클릭하면 익명함수 실행.
+			$('.player2').bind('mousedown', function(event){
+				// 마우스 왼쪽 버튼 클릭하면 Event 객체의 속성변수 button 에 1 저장.
+				// 마우스 오른쪽 버튼 클릭하면 Event 객체의 속성변수 button 에 2 저장.
+				// 마우스 가운데 버튼 클릭하면 Event 객체의 속성변수 button 에 4 저장.
+				if(event.button==1 ){
+					$('#msg').text( $(this).text( ) + '에 마우스 왼쪽 버튼에서 mousedown 이벤트 발생!');
+				}
+			});
+			//------------
+			// $('선택자').toggle( function(){코드1;}, function(){코드2;} );
+			// 마우스 홀수번째 클릭하면 코드1 실행.
+			// 마우스 짝수번째 클릭하면 코드2 실행.
+			$('.player3').toggle(
+				function( ){
+					$(this).addClass('css1');
+					$('#msg').text( $(this).text( ) + '에 홀수번째 toggle 이벤트 발생!');
+				}, 
+				function( ){
+					$(this).removeClass('css1');
+					$('#msg').text( $(this).text( ) + '에 짝수번째 toggle 이벤트 발생!');
+				}
+			);
+			//------------
+			// $('선택자').bind( focus, function(){코드1;} );
+			// 선택자에 초점이 들어가면 코드1 실행.
+			$('.staff_name').bind('focus', function( ){
+				$('#msg').text('직원명에 focus 이벤트 발생!');
+			});
+			// $('선택자').bind( keyup, function(){코드1;} );
+			// 선택자에서 키보드를 눌렀다 띨때 코드1 실행.
+			$('.staff_name').bind('keyup', function( ){
+				$('#msg').text('직원명에 keyup 이벤트 발생! <' + $(this).val( ) + '> 입력');
+			});
+			// $('선택자').bind( blur, function(){코드1;} );
+			// 선택자에 초점이 빠지면 코드1 실행.
+			$('.staff_name').bind('blur', function( ){
+				$('#msg').text('직원명에 blur 이벤트 발생!');
+			});
+			//------------
+			$('#info').hide( );
+			$('.bigdata').toggle(
+				function( ){
+					// 천천히 보여주기
+					$('#info').show('slow');
+					//$('#info').fadeIn('slow');
+					//$('#info').slideUp('slow');
+				},
+				function( ){
+					$('#info').hide('slow');
+					//$('#info').fadeOut('slow');
+					//$('#info').slideDown('slow');
+				}
+			);
+			//------------
+			$('.poby').toggle(
+				function( ){
+					$('.poby').animate( {left:600}, 'slow');
+				},
+				function( ){
+					$('.poby').animate( {left:0}, 'slow');
+				}
+			);
+			//$('.conan').bind("click", function( ){
+			$('.conan').click(function( ){
+				$('.conan').animate(
+					{left: 600}
+					, 'slow'
+					, function( ){  // 에니메이션 끝난 후 실행되는 익명함수 설정
+						$(this).fadeTo('slow',0);
+						$(this).fadeTo('slow',1);
+						$(this).animate({left: 0}, 'slow')
+					}
+				);
+			});
+			//------------
+			//$('#word1').css({'border': '2px solid', 'text-align': 'center','font-weight':'bold'}).hide( );
+			$('#word1').css({'backgroundColor': '#fff','color':'#6666FF','text-align': 'center','font-weight':'bold'}).hide( );
+			$('#word2').css({'backgroundColor': '#6666FF','color':'#fff','text-align': 'center','font-weight':'bold'});
+
+			$('#word2').click(function( ){
+			//$('#word2').css({'backgroundColor': '#f00','color':'#fff','text-align': 'center','font-weight':'bold'}).click(function( ){
+					$(this).fadeOut('slow');
+					$('#word1').fadeIn('slow');
+			});
+			$('#word1').click(function( ){
+					$(this).fadeOut('slow');
+					$('#word2').fadeIn('slow');
+			});
+		});
+		</script>
+	</head>
+	<!-- 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+jquery_test_30_1_animation.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	=>각종 이벤트를 jQuery 를 사용하여 걸어보자.
+	=>에니메이션 동작 관련 메소드를 사용하자.
+-->
+	<body>
+		==============================================<br>
+		<span id="msg"></span><br>
+		==============================================<br><br>
+		<span class="baseball player1">류현진</span>&nbsp;&nbsp;&nbsp;
+		<span class="baseball player2">추신수</span>&nbsp;&nbsp;&nbsp;
+		<span class="baseball player3">임창용</span><br><br>
+		---------------------------------<br>
+		직원명 <input type="text" name="staff_name" class="staff_name" >
+		<span class="msg4"></span> <br>
+		---------------------------------<br>
+		<span class="bigdata">big data 란... </span> 
+		<span id="info">
+			네트워크 상에서 발생하는 방대한 데이터를 말한다.
+		</span><br>
+		---------------------------------<br>
+		<img src="img/poby.jpg" class="poby" style="position:relative" height='100px'><br><br>
+		<img src="img/conan.jpg" class="conan" style="position:relative" height='100px'><br><br>
+		---------------------------------<br>
+		<span id="word1" style="position:absolute" >두려움은 포기의 전 단계 증상이다.</span>
+		<span id="word2" style="position:absolute" >긴장감은 발전의 전 단계 증상이다.</span>
+	</body>
+</html>

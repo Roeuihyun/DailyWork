@@ -1,0 +1,54 @@
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+js_06_function_09_함수문제.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	<1단계>prompt 상자가 띄우고  [아이디] 입력.
+	------------------------------
+	<2단계>[아이디] 가 "abc" 일경우 <3단계> 이동, 아닐 경우 <1단계>로 이동.
+	------------------------------
+	<3단계>prompt 상자가 띄우고 [암호] 입력. 
+	------------------------------
+	<4단계>[암호] 가 "123" 일 경우 <5단계> 이동, 아닐 경우 <3단계>로 이동
+	------------------------------
+	<5단계>웹화면에 "로그인 성공..." 출력
+-->
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title> New Document </title>
+  <script src="jquery-1.6.2.min.js" type="text/javascript"></script>
+  <script>
+	function check_id( ){
+		var id = prompt("아이디 입력 요망");
+		
+		if(id != "abc"){
+			return check_id();	
+		}
+	};
+	
+	function check_pw( ){
+		var pw = prompt("암호 입력 요망");
+		
+		if(pw != "123"){
+			return check_pw();
+		}
+	}
+	function check( ){
+		
+		check_id();
+		
+		check_pw();
+		
+		document.write("로그인 성공...."); 
+	}
+	check( );
+
+  </script>
+
+
+ </head>
+
+ <body>
+  
+ </body>
+</html>

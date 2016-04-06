@@ -1,0 +1,106 @@
+
+<!-- 
+~~~~~~~~~~~~~~~~~~~~~~
+jquery_test_31_table4_sort.html
+~~~~~~~~~~~~~~~~~~~~~~
+ -->
+<html>
+  <head>
+        <style>
+			.style1 { background-color: #00f; color: #fff ; } /*#fff*/
+			.asc{
+				/*배경색, 배경이미지파일, 배경이미지반복여부, 왼쪽거리 지정*/
+				background:lightblue url('img/up.png') no-repeat; padding-left:20px; 
+			}
+			.desc{
+				background:lightblue url('img/down.png') no-repeat; padding-left:20px; 
+			}
+		</style>
+		<script src="jquery-1.6.2.min.js" type="text/javascript"></script>
+
+        <script>
+		$(document).ready(function() {   
+				$('.stu th').each(function(index, value) {   
+						$(this).hover(
+							function(){
+								$(this).addClass('style1');
+							}, 
+							function(){
+								$(this).removeClass('style1');
+							}
+						);
+						//~~~~~~~~~~~~~~~~~~~~~~
+						// th 를 클릭하면 발생할 일을 설정
+						//~~~~~~~~~~~~~~~~~~~~~~
+						$(this).click(function(){
+							var txt = $(this).text();
+							var sortdir = 0;
+							if($(this).is(".asc")){
+								$(this).removeClass("asc");
+								$(this).addClass("desc");
+								sortdir = -1;
+							}else{
+								$(this).addClass("asc");
+								$(this).removeClass("desc");
+								sortdir = 1;
+							}
+							
+							$(this).siblings().removeClass("asc");
+							$(this).siblings().removeClass("desc");
+							
+							var rec = $(".stu").find("tbody > tr").get();
+							
+							rec.sort(function(a,b){
+								
+								var val1 = $(a).children("td").eq(index).text().toUpperCase();
+								
+								var val2 = $(b).children("td").eq(index).text().toUpperCase();
+								
+								if(val1 < val2){
+									return -1 * sortdir;
+								}else if(val1 > val2){
+									return 1 * sortdir;
+								}else{
+									return 0;
+								};
+								
+							});
+							
+							$(".stu tbody").empty();
+							
+							$.each(rec, function(index, row){
+								console.log(row);
+								$("tbody").append(row);
+							});
+							
+						});
+				});
+		});
+
+
+		</script>
+  </head>
+<!-- 
+~~~~~~~~~~~~~~~~~~~~~~
+jquery_test_31_table4_sort.html
+~~~~~~~~~~~~~~~~~~~~~~
+ -->
+<body><center>
+	<table border="1" cellpadding=10 class="stu">
+		<thead>
+			<tr bgcolor="lightblue">
+			   <th style="cursor:hand">번호
+			   <th style="cursor:hand">이름
+			   <th style="cursor:hand">평균
+		</thead>
+		<tbody>
+			<tr><td>103<td>Chirag<td>85
+			<tr><td>102<td>Naman<td>50
+			<tr><td>101<td>John<td>87
+		</tbody>
+	</table>
+</body>
+
+
+
+http://me2.do/FVv9ahRd

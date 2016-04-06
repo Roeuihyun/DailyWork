@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="jquery-1.6.2.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	var grade =[
+	            { no:1, sname:"사오정", kor:90, eng:80, mat:70},
+	            { no:2, sname:"저팔계", kor:90, eng:80, mat:70},
+	            { no:3, sname:"손오공", kor:90, eng:80, mat:70},
+	            { no:4, sname:"코난", kor:90, eng:80, mat:70},
+	            { no:5, sname:"포비", kor:90, eng:80, mat:70}
+    ]
+	
+	for (var i=0; i < grade.length; i++){
+		
+		grade[i].getSum = function(){
+			return this.kor + this.eng + this.mat;
+		};
+		
+		grade[i].getAvg = function(){
+			return this.getSum()/3;
+		};
+	}
+	
+	document.write("<table cellpadding=3 border=1>");
+	document.write("<tr><th>번호<th>이름<th>총점<th>평균");
+	
+	for(var i in grade){
+// 	for (var i = 0; i<grade[i].length; i++){
+		document.write("<tr><td>" + grade[i].no + "<td>" + grade[i].sname +
+				"<td>" + grade[i].getSum() + "<td>" + grade[i].getAvg());
+	};
+	
+	document.write("</table><br><br>");
+	//-----------------------------------------------------------------
+	document.write("<table cellpadding=3 border=1>");
+	document.write("<tr><th>번호<th>이름<th>총점<th>평균");
+	
+	for(var i in grade){
+		with(grade[i]){
+			document.write("<tr><td>" + no + "<td>" + sname +
+					"<td>" + getSum() + "<td>" + getAvg());
+		}
+	}
+	
+	document.write("</table><br><br>");
+</script>
+</head>
+<body>
+
+</body>
+</html>

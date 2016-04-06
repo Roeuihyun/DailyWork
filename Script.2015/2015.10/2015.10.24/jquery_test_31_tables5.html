@@ -1,0 +1,158 @@
+
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+jquery_test_31_table5_search.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	=>[검색 키워드]를 입력하고 [검색] 버튼 클릭하면 [검색 결과]만 화면에 보여준다.
+-->
+
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+.style1 {
+	background-color: #00f;
+	color: #fff;
+}
+</style>
+<script src="jquery-1.6.2.min.js" type="text/javascript"></script>
+
+<script>
+	$(document).ready(function() {
+		var rows;
+		var colData1;
+		var colData2;
+		var colData3;
+
+		$('.srhButton').click(function(){
+			$('table').find('tbody tr').hide();
+			
+			var searchData = $('.infobox1').val();
+			//var len = searchData.split(" ").join("").length;
+			var len = searchData.replace(" ","").length;
+			
+			if(len==0){
+				alert("검색 데이터가 없습니다.");
+				return ;
+			}
+			
+			var cnt = 0;
+			
+			$('table tbody tr').each(function(){
+				
+				colData1 = $(this).children().eq(0).text().toUpperCase();
+				colData2 = $(this).children().eq(1).text().toUpperCase();
+				colData3 = $(this).children().eq(2).text().toUpperCase();
+				
+				searchData = searchData.toUpperCase();
+				
+				if(colData1.indexOf(searchData)>=0 ||
+					colData2.indexOf(searchData)>=0 ||	
+					colData3.indexOf(searchData)>=0 ){
+					
+					$(this).show();
+				}
+				
+			});
+			
+		});
+	});
+</script>
+</head>
+
+<body>
+	<center>
+
+		이름검색 : <input type="text" class="infobox1">
+		<!-- &nbsp; and &nbsp; -->
+
+
+		<!--   <select class="orAnd">
+				<option value="or">or
+				<option value="and">and
+			   </select> 
+
+	           <input type="text"  class="infobox2">&nbsp;&nbsp; -->
+
+
+		<input type="button" value="검색" class="srhButton"> <input
+			class="allSrh" type="button" value="모두검색"
+			onclick="$('table').find('tbody tr').show(); $('.infobox1').val('');"><br>
+		<br>
+
+		<table border="1" cellpadding=5>
+			<thead>
+				<tr>
+					<th>번호
+					<th>이름
+					<th>평균
+			</thead>
+			<tbody>
+				<tr>
+					<td>101
+					<td>Johnx
+					<td>87
+				<tr>
+					<td>102
+					<td>Naman
+					<td>90
+				<tr>
+					<td>103
+					<td>Chirag
+					<td>85
+				<tr>
+					<td>104
+					<td>David
+					<td>92
+				<tr>
+					<td>105
+					<td>Kelly
+					<td>81
+				<tr>
+					<td>106
+					<td>Charles
+					<td>77
+				<tr>
+					<td>107
+					<td>Jerry
+					<td>91
+				<tr>
+					<td>108
+					<td>Beth
+					<td>87
+				<tr>
+					<td>109
+					<td>Caroline
+					<td>82
+				<tr>
+					<td>110
+					<td>Hanen
+					<td>71
+				<tr>
+					<td>111
+					<td>Douglas
+					<td>57
+				<tr>
+					<td>112
+					<td>Tim
+					<td>86
+				<tr>
+					<td>113
+					<td>Michael
+					<td>68
+				<tr>
+					<td>114
+					<td>Kimbley
+					<td>88
+				<tr>
+					<td>115
+					<td>Christinax
+					<td>72
+				<tr>
+					<td>116
+					<td>권
+					<td>72
+			</tbody>
+		</table>
+</body>

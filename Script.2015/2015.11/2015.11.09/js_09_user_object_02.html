@@ -1,0 +1,84 @@
+
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+js_09_user_object_02.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	=>사용자 정의 객체와 배열을 사용한 데이터 관리
+-->
+
+<html>
+<body>
+	<script>
+		//---------------------------------
+		// Array 객체에 [사용자 정의 객체] 저장
+		//---------------------------------
+		var grade = [
+			{ no:1, sname:"사오정", kor:90,  eng:80, mat:70 }
+			,{ no:2, sname:"저팔계", kor:90,  eng:80, mat:70 }
+			,{ no:3, sname:"손오공", kor:90,  eng:80, mat:70 }
+			,{ no:4, sname:"코난", kor:90,  eng:80, mat:70 }
+			,{ no:5, sname:"포비", kor:90,  eng:80, mat:70 }
+		];
+		
+		//---------------------------------
+		// Array 객체에 저장된 사용자 정의 객체에 메소드 추가. 
+		//---------------------------------
+        for (var i=0 ; i<grade.length ; i++) {
+        //for (var i in grade) {  // grade[0], grade[1], .. 형식으로 반복문 돌림.
+            // 총점 구하는 메서드 추가
+            grade[i].getSum = function () {
+                return this.kor + this.eng + this.mat;
+            };
+            // 평균 구하는 메서드 추가
+            grade[i].getAvg = function () {
+                return this.getSum() / 3;
+            };
+        }
+		//---------------------------------
+        // 출력
+		//---------------------------------
+		document.write(  "<table cellpadding=3 border=1>" );
+		document.write(  "<tr><th>번호<th>이름<th>총점<th>평균" );	
+        //for (var i in grade) {
+        for (var i= ; i<grade.length ; i++) {
+           document.write( "<tr><td>" + grade[i].no+ "<td>" + grade[i].sname + '<td>' + grade[i].getSum() + '<td>' + grade[i].getAvg() );
+        }
+		document.write(  "</table><br><br>" );
+		document.write(  "<table cellpadding=3 border=1>" );
+		document.write(  "<tr><th>번호<th>이름<th>총점<th>평균" );
+        for (var i in grade) {
+            with (grade[i]) {
+				document.write( "<tr><td>"+no+"<td>"+sname+"<td>"+getSum()+"<td>"+getAvg() );
+            }
+        }
+		document.write(  "</table>" );
+	</script>
+</body>
+</html>
+
+
+
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<문>Array 객체에 사용자 정의 객체를 저장한 후 메소드를 추가하는 이유는?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		=> Array 객체에 사용자 정의 객체를 저장할 때 메소드를 선언하면 반복 설정하므로 비효율적이다.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<참고>위 var grade = [ ~ ] 는 다음 처럼 가능하다.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        var grade = [];
+        grade.push(  { no:1, sname:"사오정", kor:90,  eng:80, mat:70 }  );
+        grade.push(  { no:2, sname:"저팔계", kor:90,  eng:80, mat:70  );
+        grade.push(  { no:3, sname:"손오공", kor:90,  eng:80, mat:70 }  );
+        grade.push(  { no:4, sname:"코난", kor:90,  eng:80, mat:70 }  );
+        grade.push(  { no:5, sname:"포비", kor:90,  eng:80, mat:70 }  );
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<참고>document.write( "<tr><td>" + grade[i].no+ ~ );는 다음 처럼 가능하다.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	with (grade[i]) {
+		document.write( "<tr><td>" + no+ "<td>" + sname + '<td>' + getSum() + '<td>' + getAvg() );
+	}
+
+-->

@@ -1,0 +1,213 @@
+
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+jquery_test_31_table5_addTr.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+	=>행 추가 버튼을 클릭하면 tr  행을 추가한다.
+	=>tr 에 HTML 입력양식도 카피되어 추가 된다.
+-->
+<html>
+<meta charset="UTF-8">
+<head>
+		<script src="jquery-1.6.2.min.js" type="text/javascript"></script>
+		<script> 
+			// 테이블의 행 추가. 추가되는 html 양식 이름은 자동 수정됨.
+			//------------------------------------------------------
+			function addTr_a( tabClassN  ){ 
+			//------------------------------------------------------
+					try{
+						// 매개변수 tabClassN로 전달된 class 속성값이 1개가 아니면
+						if( $("."+tabClassN).length!=1 ) {
+							alert( "<수정요망>테이블에 class='" + tabClassN + "'  속성이 없습니다."); 
+							return ;
+						}
+						// 테이블에 tbody 가 없거나 tbody 안에 tr 이 없으면.
+						if( $("."+tabClassN+" tbody tr:last").length<1 ) {
+							alert( "<수정요망>테이블에 tbody 가 없거나 tbody 안에 tr 이 없습니다."); return ;
+						}
+						//---------------------------------
+						// 입력양식 관련 선택자를 변수에 저장
+						var htmlType = "select,textarea,input[type=text],input[type=checkbox],input[type=radio],input[type=hidden],input[type=image]";
+						// 마지막 tr 을 관리하는 jQuery 객체 저장.
+						var trObj = $("."+tabClassN+" tbody tr:last");
+						// 행의 입력 양식에 데이터가 입력 또는 선택되 있으면 1 증가해 저장하는 변수 선언.
+						var cnt = 0;
+						// 한 행의 모둔 입력 양식에 데이터가 입력 또는 선택되 있으면 변수 cnt에 1 증가
+						trObj.find(htmlType).each( function(index,value){
+							if( $(this).attr("type")=="radio" || $(this).attr("type")=="checkbox" ) {
+								if( $(this).attr("checked")==true) cnt++;
+							}
+							else{
+								 if( $(this).attr("value").split(" ").join("")!="" ) {cnt++;}
+							}
+						});
+						if(cnt==0 ) { alert("마지막 행이 비어있어 행 추가 불가능!"); return; }
+						//---------------------------------
+						// 마지막 행을 복사해 마지막에 추가
+						$("."+tabClassN+" tbody").append( trObj.clone() );  
+						//---------------------------------
+						trObj = $("."+tabClassN+" tbody tr:last");
+						trObj.find("textarea,select,input[type=text],input[type=image],input[type=hidden]").val("");
+						trObj.find(":checked").attr( "checked", false );
+						//---------------------------------
+						trObj.find(htmlType).each( function(index,value){
+								var nm = $(this).attr("name");
+								$(this).attr( 
+									"name"
+									, plus1ToHtmlNNum(nm) 
+								);
+						});
+						alert(trObj.html());
+						//$("."+tabClassN+" tbody").find("[name=f_name10]").val("asasas" );
+						//$("."+tabClassN+" tbody").find("[name=relation10]").val("배우자" );
+					}catch(e) {
+						alert( "addTr_a(  '"+tabClassN+"' ); 함수 호출 시 예외발생!" ); 
+					}
+					//---------------------------------
+					function plus1ToHtmlNNum( str ){  // 행 추가 시 html 양식이름에 있는 숫자를 1업데이트
+					//--------------------------------
+						try{ 
+							var numStr = "";
+							var idx = 0;
+							for(var i=str.length-1 ; i>=1 ; i--){
+								var s1 = str.charAt(i);
+								var s2 = str.charAt(i-1);
+								if( isNaN( s1 )==false )  { numStr = s1 + numStr; }
+								if( numStr.length>0 && isNaN( s2 )==true  )  { idx=i; break; }
+							}
+							if( numStr == "" )  { alert("<수정 요망>멀티  행 표현시 각 행의 html 양식 이름에 일련번호가 없습니다.!"); return "";}
+							return  str.substring(0,idx) + str.substring(idx).replace(numStr, parseInt(numStr,10)+1);
+						}catch(e) {
+							alert(  "addTr_a('"+tabClassN+"') 함수 내부의 plus1ToHtmlNNum('"+str+"') 함수호출 시 예외발생!" ); 
+						}
+					}
+			}
+			//--------------------------------------------------------------------------
+			function addTr_b( tabClassN, htmlNs  ){  // 테이블의 행 추가. 추가되는 html 양식 이름은 자동 수정됨.
+			//--------------------------------------------------------------------------
+				try{
+					if( $("."+tabClassN).length!=1 ) {
+						alert( "<수정요망>테이블에 class='" + tabClassN + "'  속성이 없습니다."); return ;
+					}
+					if( $("."+tabClassN+" tbody tr:last").length<1 ) {
+						alert( "<수정요망>테이블에 tbody 가 없거나 tbody 안에 tr 이 없습니다."); return ;
+					}
+					var rowCnt =  $("."+tabClassN+" tbody tr").length;  
+					var arr1 = htmlNs.split("/");
+					var arr2 = htmlNs.split("/");
+					for( var i=0 ; i<arr1.length ; i++){
+						arr1[i] = arr1[i].replace("?",rowCnt);
+						arr2[i] = arr2[i].replace("?",rowCnt+1);
+					}
+					//---------------------------------
+					var trObj = $("."+tabClassN+" tbody tr:last");
+					var htmlType = "select,textarea,input[type=text],input[type=checkbox],input[type=radio],input[type=hidden],input[type=image]";
+					var cnt = 0;
+					trObj.find(htmlType).each( function(index,value){
+						if( $(this).attr("type")=="radio" || $(this).attr("type")=="checkbox" ) {
+							if( $(this).attr("checked")==true) {cnt++;}
+						}
+						else{
+							 if( $(this).attr("value").split(" ").join("")!="" ) {cnt++;}
+						}
+					});
+					if(cnt==0 ) { alert("마지막 행이 비어있어 행 추가 불가능!"); return; }
+					//---------------------------------//alert(  arr1 +" / " + arr2 );
+					$("."+tabClassN+" tbody").append( trObj.clone() );
+					//---------------------------------
+					trObj = $("."+tabClassN+" tbody tr:last");
+					trObj.find("textarea,select,input[type=text],input[type=image],input[type=hidden]").val("");
+					trObj.find(":checked").attr("checked", false );
+					
+					for( var i=0 ; i<arr1.length ; i++){
+						//alert(  trObj.find("[name="+arr1[i]+"]").attr("name") );
+						if( trObj.find("[name="+arr1[i]+"]").length==0 ) {
+							alert( "<수정요망>");
+							return ;
+						}
+						trObj.find("[name="+arr1[i]+"]").attr("name",arr2[i] );
+					}
+					//$("."+tabClassN+" tbody").find("[name=f_name10]").val("asasas" );
+					//$("."+tabClassN+" tbody").find("[name=relation10]").val("배우자" );
+				}catch(e) {
+					alert( "addTr_b(  '"+tabClassN+"' ); 함수 예외발생!" ); return false;
+				}
+			}
+			//--------------------------------------------------------------------------
+			function delLastTr( tabClassN  ){
+			//--------------------------------------------------------------------------
+				try{
+					if( $("."+tabClassN).length!=1 ) {
+						alert( "<수정요망>테이블에 class='" + tabClassN + "'  속성이 없습니다."); return ;
+					}
+					if(  $("."+tabClassN+" tbody tr").length==1 ) { 
+						alert( "<경고>1개 남은 행은 삭제할 수없습니다."); return ;
+					}
+					//---------------------------------
+					var htmlType = "select,textarea,input[type=text],input[type=checkbox],input[type=radio],input[type=hidden],input[type=image]";
+					var cnt = 0;
+					var trObj = $("."+tabClassN+" tbody tr:last");
+					//---------------------------------
+					trObj.find(htmlType).each( function(index,value){
+						if( $(this).attr("type")=="radio" || $(this).attr("type")=="checkbox" ) {
+							if( $(this).attr("checked")==true) cnt++;
+						}
+						else{
+							 if( $(this).attr("value").split(" ").join("")!="" ) {cnt++;}
+						}
+					});
+					if(cnt>0 ) { 
+						if( confirm("삭제할 마지막 행에 데이터가 있습니다. 정말 삭제합니까?")==false ) {return;}
+					}
+					$("."+tabClassN+" tbody tr:last").remove();
+				}catch(e) {
+					alert( "delLastTr(  '"+tabClassN+"' ); 함수 예외발생!" ); 
+				}
+			}
+		</script>
+</head>
+
+<body><center>
+
+	<form name="myForm">
+		<table border=1 cellpadding=5 class="xxx">
+		<thead>
+		<tr>
+			<th bgcolor=#C1C1C1>가족관계
+			<th bgcolor=#C1C1C1>이름
+			<th bgcolor=#C1C1C1>동거여부
+		</thead>
+		<tbody>
+		<tr>
+			<td>
+				<select name="relation1">
+					<option value="">
+					<option value="부">부
+					<option value="모">모
+					<option value="형제">형제
+					<option value="배우자">배우자
+				</select>
+			<td>
+				<input type="text" name="f_name1">
+			<td>
+				<input type="checkbox" name="with_live1" value="동거">동거
+		</tbody>
+		</table><br>
+
+		<input type="button" value="행추가"  onclick="addTr_a( 'xxx');"> 
+		<!-- <input type="button" value="행추가2"  onclick="addTr_b( 'xxx', 'relation?/f_name?/with_live?' );">  -->
+		<input type="button" value="행삭제"  onclick="delLastTr( 'xxx');"> 
+	</form>
+
+</body>
+</html>
+
+
+<!-- 
+-----------------------------------------------------------------------
+<문>자바스크립트를 사용하여 가족관계,이름,동거여부 를 출력하면?
+-----------------------------------------------------------------------
+
+
+
+-->

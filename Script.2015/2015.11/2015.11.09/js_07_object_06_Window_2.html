@@ -1,0 +1,74 @@
+
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+js_07_object_06_Window_2.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	=>Date 객체의 메소드를 사용하여 웹화면에 흘러가는 디지털 시계를 출력하자.
+	=>반장 감기 빨랑나라~~~~~`
+-->
+<html>
+<head>
+	<script>
+		function printTime( )  {
+			var today = new Date( );
+
+			var amPm = "오후";
+			var hour = today.getHours( );
+			var minute = today.getMinutes( );
+			var second = today.getSeconds( );
+			//----------------------
+			if( minute<10 ) {
+				minute = "0" + minute;
+			}
+			if( second<10 ) {
+				second = "0" + second;
+			}
+			if( hour<12 ) {
+				amPm = "오전";
+			}
+			if( hour>12 ) {
+				hour = hour-12;
+			}
+			if( hour<10 ) {
+				hour = "0" + hour;
+			}
+
+			// id="nowTime" 란 곳의 태그에 소스 삽입.
+			document.getElementById("nowTime").innerHTML  = 
+						"현재 시간 => " + amPm + " " + hour + "시 "
+						+minute+"분 "+second+"초";
+		}
+		function startTime( ) {
+			// 1초 마다 printTime( ) 함수 호출
+		    window.setInterval( "printTime( )", 1000 );
+		}
+	</script>
+</head>
+
+<body onload ="printTime( ); startTime( )"><center>
+	<div id="nowTime">
+	</div>
+</body>
+</html>
+
+<!--------------------------------------------------------
+==========================================================
+<문>위에서 현재 시간을 다음 조건에 맞게 출력하면?
+===========================================================
+		[오전(오후) ~시 ~분 ~초]로 표현
+		시간은 1~12로 표현
+
+
+
+
+============================================================
+<참고><body  onLoad = "printTime( ); startTime( )">는 다음 처럼도 가능하다.
+====================================================================
+	<script>
+		window.onload =  function()  {
+			printTime( ); 
+			startTime( );
+		}
+	</script>
+
+-------------------------------------------------------->

@@ -1,0 +1,139 @@
+<!-- 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+jquery_test_50_setChainSelect.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ -->
+  <html>
+	<head>
+		<script type="text/javascript" src="jquery-1.5.2.min.js"></script>
+		<script language="JavaScript">
+		//--------------------------------------------------------------------------
+		function set_chainSelect_jq( htmlN  ){// select 상자끼리 차례대로 선택한 항목은 안보이게 하기. htmlN 은" 이름1/이름2~"
+		//--------------------------------------------------------------------------
+			try{
+				var htmlNArr = htmlN.split("/"); 
+				for( var i=0 ; i<htmlNArr.length-1 ; i++ ){
+						var obj1 = $("[name=" + htmlNArr[i] +"]");
+						var val1 = obj1.val();
+						if( val1=="" ) { 
+							$("[name=" + htmlNArr[i+1] +"]").val("").html(  	
+								obj1.html( )    
+							);
+							//set_chainSelect_jq( htmlN  );
+							continue;
+						}/**/
+						for( var ii=i+1 ; ii<htmlNArr.length ; ii++ ){
+							var obj2 = $("[name=" + htmlNArr[ii] +"]");
+							var val2 = obj2.val();
+							//obj2.empty( ).html(  	obj1.html( )    );
+							obj2.html(  	obj1.html( )    );
+							obj2.find("[value="+val1+"]").remove( );
+							obj2.val(val2);
+						}
+				}
+			}catch(e){ alert( "set_chainSelect_jq( ~ ) 함수 호출 시 에러 발생!" ); }
+		}
+		//--------------------------------------------------------------------------
+		function set_chainSelect2_jq( spanN  ){// span 태그 영역 안의 select 상자끼리 차례대로 선택한 항목은 안보이게 하기. 
+		//--------------------------------------------------------------------------
+			try{
+				var obj1 = $("#" + spanN );
+				if(  obj1.length==0 ) { 
+					alert( "set_chainSelect2_jq( ~ ) 함수 호출 시 에러 발생!" ); return; 
+				}
+				var htmlNArr = new Array();
+				for( var i=0 ; i<obj1.children().length ; i++ ){
+					htmlNArr.push(   obj1.children().eq(i).attr("name")  ); 
+				}
+				set_chainSelect_jq(   htmlNArr.join("/") ); 
+			}catch(e){ alert( "set_chainSelect2_jq( ~ ) 함수 호출 시 에러 발생!" ); }
+		}
+</script>
+	</head>
+	<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	jquery_test_50_setChainSelect.html
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+	<body>
+		<!---------------------------------------------------------------->
+		<span id="skills">
+		<select name="skill1" onchange="set_chainSelect2_jq('skills');">
+			<option value="">
+			<option value="JSP">JSP
+			<option value="ASP">ASP
+			<option value="PHP">PHP
+			<option value="Oracle">Oracle
+			<option value="Java">Java
+		</select>
+		<select name="skill2" onchange="set_chainSelect2_jq('skills');">
+			<option value="">
+			<option value="JSP">JSP
+			<option value="ASP">ASP
+			<option value="PHP">PHP
+			<option value="Oracle">Oracle
+			<option value="Java">Java
+		</select>
+		<select name="skill3" onchange="set_chainSelect2_jq('skills');">
+			<option value="">
+			<option value="JSP">JSP
+			<option value="ASP">ASP
+			<option value="PHP">PHP
+			<option value="Oracle">Oracle
+			<option value="Java">Java
+		</select>
+		</span>
+		<!---------------------------------------------------------------->
+	</body>
+</html>
+
+<!-- 
+
+		<select name="skill1" onchange="set_chainSelect_jq('skill1/skill2/skill3');">
+			<option value="">
+			<option value="JSP">JSP
+			<option value="ASP">ASP
+			<option value="PHP">PHP
+			<option value="Oracle">Oracle
+			<option value="Java">Java
+		</select>
+		<select name="skill2" onchange="set_chainSelect_jq('skill1/skill2/skill3');">
+			<option value="">
+			<option value="JSP">JSP
+			<option value="ASP">ASP
+			<option value="PHP">PHP
+			<option value="Oracle">Oracle
+			<option value="Java">Java
+		</select>
+		<select name="skill3" onchange="set_chainSelect_jq('skill1/skill2/skill3');">
+			<option value="">
+			<option value="JSP">JSP
+			<option value="ASP">ASP
+			<option value="PHP">PHP
+			<option value="Oracle">Oracle
+			<option value="Java">Java
+		</select>
+-->
+
+<!-- 
+		try{
+			에러발생 예상 소스;
+		}
+		catch(e){
+			에러발생 시 실행 소스;
+		}
+		finally{
+			예외 처리 관계없이 반드시 실행할 소스;
+		}
+		
+		--------------------------------
+		순수자바에서 예외처리
+		--------------------------------
+		try{
+			에러발생 예상 소스;
+		}
+		catch(Exception e){
+			에러발생 시 실행 소스;
+		}
+		finally{
+			예외 처리 관계없이 반드시 실행할 소스(DB 연결 관련 객체의 연결 끊음 소스);
+		}
+ -->

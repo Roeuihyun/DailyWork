@@ -1,0 +1,41 @@
+PAGE 7 - 일반 JOIN 사진
+PAGE 8 - INNER JOIN 사진
+PAGE 9 - INNER는 디폴트라 제외한 조인 결과는 모두 똑같음
+PAGE 11 - DEPNTNO라는 컬럼으로 자동 인식됨
+PAGE 12 - 별칭이나 테이블명 접두사 불가능
+PAGE 13 - 컬럼순서 미지정시 기준컬럼이 맨 앞에 옴
+PAGE 14 - INNER JOIN 시 별개 컬럼으로 표시
+PAGE 16 - USING을 이용하여 복사테이블과 확인
+PAGE 17 - 테이블 접두사 불가능
+PAGE 18 - DNAME 컬럼으로 INNER JOIN USING 조건 수행
+PAGE 19 - 2개 컬럼은 INNER JOIN 조건 수행
+PAGE 21 - 부서번호로 조인
+PAGE 22 - WHERE 절과 혼용
+PAGE 23 - ON 조건에 데이터 검증 조건 추가
+PAGE 24 - 다중 테이블 조인
+PAGE 26 - EMP TABLE과 DEPT TALBE 크로스 조인
+PAGE 29 - LEFT OUTER JOIN
+PAGE 30 - RIGHT OUTER JOIN
+PAGE 31 - FULL OUTER JOIN
+PAGE 33 - 중간에 집합 연산자가 반드시 있어야 집합 연산자 SQL문이 돌아간다.
+PAGE 39 -
+START WITH 계층구조의 전개의 시작 위치를 지정(ROOT DATA)
+CONNECT BY 다음에 전개될 자식데이터를 지정
+PRIOR 현재 읽은 컬럼을 지정한다. 부모 자식 컬럼을 왼쪽 오른쪽에 놓는거에 따라 순방향 역방향 전개가 됨
+NOCYCLE 사이클이 발생한 이후 전개하지 않음
+ORDER SIBLINGS BY 형제 노드 사이에서 정렬을 수행한다.
+PAGE 54 - 단일행 서브쿼리 예제
+PAGE 56 - 쿼리의 결과가 여러개 인 경우
+PAGE 57 - 두개이상의 컬럼을 조건으로 사용하거나 뽑아서 사용하는 경우
+PAGE 58 - 평균 값을 비교로 하는 경우나 최대 최소와 비교시 얼마나 차이나는지 알고싶은 경우
+PAGE 61 - AGGREGATE = 합산
+PAGE 65 - 일반적인 GROUP BY 사용
+PAGE 66 - ODER BY절, GROUP BY절 사용
+PAGE 67 - ROLLUP 함수 사용
+PAGE 76 - DENSE_RANK - RANK 함수와 흡사하나 동일한 순위를 하나의 건수로 취급하는 점이 다른점
+PAGE 78 - LAG 함수 - 파티션별 윈도우에서 이전 몇번째 행의 값을 가져올 수 있다.
+PAGE 79 - 
+RATION_TO_REPORT 함수 해당 파티션 내에 SUM 값에 대한 백분율을 소수점으로 알려줌
+PERCENT_RANK 함수 행의 순서별 백분율을 구함
+CUME_DIST 함수 행들의 건수에 대한 누적 백분율을 구해줌
+NTILE 함수 파티션별 전체 건수를 ARGUMENT 값으로 N 등분한 결과를 구할 수 있다.

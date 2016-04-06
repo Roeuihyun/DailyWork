@@ -1,0 +1,124 @@
+<!-- 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+js_05_03_for.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<예제설명>반복문을 사용하여 구구단 출력하기,
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<예제목적>반복문이 겹쳐 나올 경우의 구조를 정확히 이해한다.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ -->
+
+<html>
+ <head>
+  <title> New Document </title>
+ </head>
+
+ <body>
+<body>
+		<script>
+			//--------------------------------------------
+			// 반복문을 사용하여 구구단 3단 출력하기
+			//--------------------------------------------
+			document.write( "<table cellpadding=2>" );
+			for( var i=1; i<=9; i++){
+				document.write( "<tr><td>3 * " + i + " = " + 3*i + "</td></tr>" );
+			}
+			document.write( "</table>" );
+			document.write( "<hr>" );
+			//--------------------------------------------
+			// 반복문을 사용하여 구구단 1~9단 까지 출력하기
+			//--------------------------------------------
+			document.write( "<table cellpadding=2 border=1>" );
+			for( var i=1; i<=9; i++){
+				document.write( "<tr>" );
+				for( var j=1; j<=9; j++ ){
+					document.write( "<td>" + j + " * " + i + " = " + (j * i) );
+				}
+			}
+			document.write( "</table>" );
+			document.write( "<hr>" );
+			//--------------------------------------------
+			// 반복문을 사용하여 구구단 1~9단 까지 출력하기( 단 5단 생략)
+			//--------------------------------------------
+			document.write( "<table cellpadding=2 border=1>" );
+			for( var i=1; i<=9; i++){
+				document.write( "<tr>" );
+				for( var j=1; j<=9; j++ ){
+					/*
+					~~~~~~~~~~~~~~
+					<방법1>
+					~~~~~~~~~~~~~~
+					if( j==5 ) { continue; }
+					document.write( "<td>" + j + " * " + i + " = " + (j * i) );
+					~~~~~~~~~~~~~~
+					<방법2>
+					~~~~~~~~~~~~~~
+					if( j!=5 ) {
+						document.write( "<td>" + j + " * " + i + " = " + (j * i) );
+					}
+					*/
+					if( !(j==5) ) {
+						document.write( "<td>" + j + " * " + i + " = " + (j * i) );
+					}
+				}
+			}
+			document.write( "</table>" );
+			document.write( "<hr>" );
+			//--------------------------------------------
+			// 반복문을 사용하여 구구단 1~9단 까지 출력하기1(단 구구단 결과값이 45면 중단)
+			//--------------------------------------------
+			document.write( "<table cellpadding=2 border=1>" );
+			for( var i=1; i<=9; i++){
+				document.write( "<tr>" );
+				for( var j=1; j<=9; j++ ){
+					document.write( "<td>" + j + " * " + i + " = " + (j * i) );
+					if( i*j==45 ) { break; }
+				}
+				if( i*j==45 ) { break; }
+			}
+			document.write( "</table>" );
+			document.write( "<hr>" );
+			//--------------------------------------------
+			// 반복문을 사용하여 구구단 1~9단 까지 출력하기2 (단 구구단 결과값이 45면 중단)
+			//--------------------------------------------
+			document.write( "<table cellpadding=2 border=1>" );
+			abc:for( var i=1; i<=9; i++){
+				document.write( "<tr>" );
+				for( var j=1; j<=9; j++ ){
+					document.write( "<td>" + j + " * " + i + " = " + (j * i) );
+					if( i*j==45 ) { break abc; } // 별칭 abc 가 붙은 반복문을 중단하라.
+				}
+			}
+			document.write( "</table>" );
+			document.write( "<hr>" );
+			//--------------------------------------------
+			// 2개의 숫자를 입력받아 두 숫자의 범위까지 구구단출력하기
+				// ( 단 두 숫자의 차이가 10 이 넘어가면 두 숫다 차이를 10으로 수정한다.
+				// 진봉인씨 작품
+			//--------------------------------------------
+			var min_val = prompt("시작 구구단 입력 요망!");
+			var max_val = prompt("끝 구구단 입력 요망!");
+
+			min_val = parseInt( min_val, 10 );
+			max_val = parseInt( max_val, 10 );
+
+			if( max_val<min_val || max_val-min_val>10 ){
+				max_val = min_val + 10;
+			}
+
+			document.write( "<table cellpadding=2 border=1>" );
+			for( var i=1; i<=9; i++){
+				document.write( "<tr>" );
+				for( var j=min_val; j<=max_val; j++ ){
+					document.write( "<td>" + j + " * " + i + " = " + (j * i) );
+				}
+			}
+			document.write( "</table>" );
+			document.write( "<hr>" );
+
+
+		</script>
+  
+
+ </body>
+</html>

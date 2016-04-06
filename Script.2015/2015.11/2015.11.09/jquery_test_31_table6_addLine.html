@@ -1,0 +1,228 @@
+
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~
+jquery_test_31_table5_search.html
+~~~~~~~~~~~~~~~~~~~~~~~~~
+	=>[검색 키워드]를 입력하고 [검색] 버튼 클릭하면 [검색 결과]만 화면에 보여준다.
+-->
+
+<html>
+  <head>
+        <style>.style1 { background-color: #00f; color: #fff; } </style>
+		<script src="jquery-1.5.2.min.js" type="text/javascript"></script>
+
+        <script>
+			$(document).ready(function() {   
+
+					setTableCss1( 
+						".stu1"			                                // table 태그에 설정한 class 속성값
+						, "#D3D3D3"                                      // table 의 경계선 색상
+						, "#88C4FF/white/#EFEFEF/#CCFFFF"	// 헤더 배경색/짝수행배경색/홀수행배경색/마우스온행배경색
+					);
+					setTableCss2(
+						 ".stu3"                                       // table 태그에 설정한 class 속성값
+						 , "#000000"                                  // table 의 경계선 색상
+						 , "#505050/white/#FFFFFF/white"     // th배경색/th글자색/td배경색/td글자색
+					);
+			});
+
+			//==========================================================================
+			function setTableCss1(                                             // 테이블 경계선 가로선만 보이기. 주로 검색 결과 보일 때 사용
+						tableClassN                                                // table 태그에 설정한 class 속성값
+						, borderC                                                    // table 의 경계선 색상
+						, headerBgC_oddsBgC_evenBgC_mouceOnBgC   //헤더 배경색/짝수행배경색/홀수행배경색/마우스온행배경색(1번째 tr 이후 부터 적용됨)
+			){
+			//==========================================================================
+				try{
+					if( $(tableClassN).length==0 ) {  
+						alert( "jQuery API 를 상단에 수입하가나 '"+tableClassN+" 란 class 속성값을 가진 테이블이 없읍니다." );
+						return;
+					}
+					var arr = headerBgC_oddsBgC_evenBgC_mouceOnBgC.split("/"); 
+					var headerBgC = arr[0];     var oddsBgC = arr[1] ;
+					var evenBgC = arr[2];        var mouceOnBgC = arr[3] ;
+					//----------------------------------
+					// 테이블에 CSS 설정하기
+					//----------------------------------
+					var obj = $(tableClassN);
+					obj.attr( {"border":"0","cellspacing":"0", "style":"border-collapse:collapse;font-size:12;" } );
+					obj.find('td,th').css( {    "padding":"5", "border-top":"1 solid "+borderC , "border-bottom":"1 solid "+borderC    });
+					obj.find("tr:first").css( {   "background":headerBgC    });
+					//---
+					obj.find('tr').each(function(index, b) {
+							 if(  index>0 && index%2==1 ){
+									$(this).css({   "background":oddsBgC, "cursor":"hand"   });
+							 }
+							 else if(  index>0 && index%2==0 ){
+									$(this).css({   "background":evenBgC, "cursor":"hand"   });
+							 }
+					});
+					//----------------------------------
+					// 마우스 온 배경색 설정
+					//----------------------------------
+					obj.find("tr").filter("tr:gt(0)").hover(
+								function(){   
+									$(this).css({   "background":mouceOnBgC, "cursor":"hand"   });
+								}, 
+								function(){    
+									obj.find('tr').each(function(index, b) {
+											 if(  index>0 && index%2==1 ){
+													$(this).css({   "background":oddsBgC, "cursor":"hand"   });
+											 }
+											 else if(  index>0 && index%2==0 ){
+													$(this).css({   "background":evenBgC, "cursor":"hand"   });
+											 }
+									});
+								}
+					);  
+				}catch(e){
+					alert( "setTableCss1('"+tableClassN+"', ~) 함수 호출 시 예외 발생!" );
+				}
+			}
+
+
+			//==========================================================================#88C4FF
+			function setTableCss2(                          // 테이블 경계선 얇게하기, 안쪽여백 주기
+						tableClassN                             // table 태그에 설정한 class 속성값
+						, borderC                                // table 의 경계선 색상
+						, thBgC_thFontC_tdBgC_tdFontC   // th배경색/th글자색/td배경색/td글자색
+			){
+			//==========================================================================
+				try{
+					if( $(tableClassN).length==0 ) {  
+						alert( "jQuery API 를 상단에 수입하가나 '"+tableClassN+" 란 class 속성값을 가진 테이블이 없읍니다." );
+						return;
+					}
+					var arr = thBgC_thFontC_tdBgC_tdFontC.split("/");  
+					var thBgC = arr[0];                      var thFontC = arr[1] ;
+					var tdBgC = arr[2];                      var tdFontC = arr[3] ;
+					//--------
+					$(tableClassN).attr("style","border-collapse:collapse; border:1px solid "+ borderC+"; padding:5; background:"+thBgC  );
+					$(tableClassN).find('th').attr(  "style","border-collapse:collapse; border:1px solid "
+																			+ borderC+"; padding:5; background:"+thBgC+"; color:"+thFontC  );
+					$(tableClassN).find('td').attr(  "style","border-collapse:collapse; border:1px solid "
+																			+ borderC+"; padding:5; background:"+tdBgC+"; color:"+tdFontC  );
+				}catch(e){
+					alert( "setTableCss2('"+tableClassN+"', ~) 함수 호출 시 예외 발생!" );
+				}
+			}
+
+		</script>
+  </head>
+<body><center>
+
+
+	<!--  <style>
+	table,td,th{ 
+	 	border-collapse: collapse; 
+		/*border:1px solid #663366;*/
+	 	padding : 5; 
+	 	font-size: 9pt;
+	 	font-family: tahoma,굴림,돋움,verdana; 
+	 }  
+	 </style> -->
+
+
+	<!-- <table border="0" cellpadding=5 cellspacing=0 > -->
+	<table class="stu1">
+			<tr><th>번호<th>이름<th>평균
+			<tr><td>101<td>Johnx<td>87
+			<tr><td>102<td>Naman<td>90
+			<tr><td>103<td>Chirag<td>85
+			<tr><td>104<td>David<td>92
+			<tr><td>105<td>Kelly<td>81
+			<tr><td>106<td>Charles<td>77
+
+			<tr><td>107<td>Jerry<td>91
+			<tr><td>108<td>Beth<td>75
+			<tr><td>109<td>Caroline<td>82
+			<tr><td>110<td>Hanen<td>71
+			<tr><td>111<td>Douglas<td>57
+			<tr><td>112<td>Tim<td>86
+			<tr><td>113<td>Michael<td>68
+			<tr><td>114<td>Kimbley<td>88
+			<tr><td>115<td>Christinax<td>72
+			<tr><td>116<td>권<td>72
+	</table>
+
+	<br>
+
+	<br><br><br>
+		<table  class="stu3">
+		<tr>
+			<th>sss</th>
+			<td>ddd</td>
+		</tr>
+		<tr>
+			<th>sss</th>
+			<td>ddd</td>
+		</tr>
+		</table>
+
+
+</body>
+</html>
+
+
+
+<!-- 
+
+
+			//==========================================================================
+			function setTableCss1(                                             // 테이블 경계선 가로선만 보이기. 주로 검색 결과 보일 때 사용
+						tableClassN                                                // table 태그에 설정한 class 속성값
+						, borderBottomC                                           // table 의 경계선 색상
+						, headerBgC_oddsBgC_evenBgC_mouceOnBgC   //헤더 배경색/짝수행배경색/홀수행배경색/마우스온행배경색(1번째 tr 이후 부터 적용됨)
+			){
+			//==========================================================================
+				try{
+					if( $(tableClassN).length==0 ) {  
+						alert( "jQuery API 를 상단에 수입하가나 '"+tableClassN+" 란 class 속성값을 가진 테이블이 없읍니다." );
+						return;
+					}
+					var arr = headerBgC_oddsBgC_evenBgC_mouceOnBgC.split("/"); 
+					var headerBgC = arr[0];     var oddsBgC = arr[1] ;
+					var evenBgC = arr[2];        var mouceOnBgC = arr[3] ;
+					//---
+					var classN = "xxxxxx"
+					$("body").prepend( "<style>."+classN+" { background: "+mouceOnBgC+";  }</style>"  );
+					$(tableClassN).attr( {"border":"0","cellspacing":"0", "style":"font-size:12;" } );
+					$(tableClassN).find('td,th').attr( {"style":"padding:5"} );
+					
+					$(tableClassN).find("tr").filter("tr:gt(0)").attr( {"style":"cursor:hand"} );
+					$(tableClassN).find("tr:odd").filter("tr:gt(0)").css( 'background', oddsBgC);
+					$(tableClassN).find("tr:even").filter("tr:gt(0)").css('background', evenBgC);
+					//----------------------------------
+					// 라인 더하기
+					//----------------------------------
+					$(tableClassN).find("tr").hover(
+							//if( $(this).html().indexOf("colspan='40'")<0 ){
+								function(){   
+									$(this).find('td').addClass(classN); 
+								}, 
+								function(){   
+									$(this).find('td').removeClass(classN);   
+								}
+							//}
+					);  
+					//---
+					var lineTr = "<tr><td colspan='40' height='1' bgcolor="+borderBottomC+">";
+					$(tableClassN).find('tr').each(function(index, b) {
+							 if( index==0) {  $(this).css( "background",headerBgC );  }
+							 //if( index>0) {  $(this).attr( {"style":"cursor:hand"} );  }
+							 $(this).before( lineTr );
+					});
+					$(tableClassN).find('tr').last().after( lineTr );
+
+
+				}catch(e){
+					alert( "setTableCss1('"+tableClassN+"', ~) 함수 호출 시 예외 발생!" );
+				}
+			}
+-->
+
+
+
+
+
+

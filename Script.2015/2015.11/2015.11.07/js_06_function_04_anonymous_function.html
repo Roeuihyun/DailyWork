@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<script src="jquery-1.6.2.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	function getMsg(func){
+		func();
+	};
+	
+	function getGrade1(no, sname, num1, num2){
+		var avg = (num1 + num2)/2;
+		var result = "[번호] :" + no + ", [이름] :" + sname + ", [평균] : " + avg;
+		return result;
+	};
+	
+	function getGrade2(no, sname, num1, num2, func){
+		var avg = func(num1 , num2);
+		var result = "[번호] :" + no + ", [이름] :" + sname + ", [평균] : " + avg;
+		return result;
+	};
+	
+	function getGrade3(no, sname, num1, num2){
+		var func = function(){
+			var avg = (num1 + num2)/2;
+			var result = "[번호] :" + no + ", [이름] :" + sname + ", [평균] : " + avg;
+			return result;
+		};
+		return func;
+	};
+</script>
+<body>
+<script type="text/javascript">
+	getMsg(function(){alert("2014년 4차 시험 성적");});
+	
+	document.write(
+		getGrade1(1,"사오정",80,90)		
+	);
+	
+	document.write("<hr>");
+	
+	document.write(
+		getGrade2(2,"저팔계",60,78, function(n1,n2){return (n1+n2)/2;})		
+	);
+	
+	document.write("<hr>");
+	
+	document.write(
+		getGrade3(3,"손오공",65,98)()
+	);
+	
+</script>
+
+</body>
+</html>

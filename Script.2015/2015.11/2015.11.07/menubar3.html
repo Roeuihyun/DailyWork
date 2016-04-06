@@ -1,0 +1,162 @@
+<html>
+<meta charset="UTF-8">
+<script src="jquery-1.6.2.min.js"> </script>
+
+<!--********************************************************-->
+<!--메뉴바 관련 CSS 설정( 수정 )-->
+<!--********************************************************-->
+<style>
+	/*-------------------------------------------*/
+	a:link {text-decoration:none;color:#696969} 
+	a:hover{text-decoration:none;color:#66ccff} 
+	a:visited {text-decoration:none;color:#330066} 
+	/*-------------------------------------------*/
+	.mainMenubarCss_mouseOut { background-color: #D20000; font-size:13; color: #FFE8E8;  border:1px solid #D20000; cursor:hand; }
+	.mainMenubarCss_mouseOver { background-color: #860000; font-size:13; color: #FFE8E8;  border:1px solid #860000;}
+	.subMenubarCss { font-size:12;  }
+	/*
+	.mainMenubarCss_mouseOut { background-color: #646464; font-size:13; color: #FFFFFF;  border:1px solid #646464; cursor:hand; }
+	.mainMenubarCss_mouseOver { background-color: #0E0E0E; font-size:13; color: #FFFFFF;  border:1px solid #0E0E0E;}
+
+	.mainMenubarCss_mouseOut { background-color: #330000; font-size:13; color: #FFFFFF;  border:1px solid #330000; }
+	.mainMenubarCss_mouseOver { background-color: #FFFFFF; font-size:13; color: #330000;  border:1px solid #330000;}
+
+	.mainMenubarCss_mouseOut { background-color: #0080C0; font-size:12; color: #FFFFFF;  border:1px solid #0080C0; }
+	.mainMenubarCss_mouseOver { background-color: #004566; font-size:12; color: #FFFFFF;  border:1px solid #004566; cursor:hand;}
+
+	.mainMenubarCss_mouseOut { background-color: #984B4B; font-size:12; color: #FFFFFF;  border:1px solid #984B4B; }
+	.mainMenubarCss_mouseOver { background-color: #592D2D; font-size:12; color: #FFFFFF;  border:1px solid #592D2D; cursor:hand;}
+	*/
+</style>
+<!--********************************************************-->
+
+
+<body>
+
+<!--*******************************************************************-->
+<!--메뉴바 HTML 설정( 수정 요망 )-->
+<!--*******************************************************************-->
+<div class="menubar" align="center">
+	<div style="padding:0; width:100%; background-color:#D20000" >
+		<!----------------------------------------------------->
+		<!---메인 메뉴바-->
+		<!----------------------------------------------------->
+		<table class="m_menubar" cellpadding=5 cellspacing=0> 
+			<tr>
+				<th>&nbsp;&nbsp;&nbsp;개발자&nbsp;&nbsp;&nbsp;
+				<th>&nbsp;&nbsp;&nbsp;보고서&nbsp;&nbsp;&nbsp;
+				<th>&nbsp;&nbsp;&nbsp;프로젝트&nbsp;&nbsp;&nbsp;
+		</table>
+	</div>
+	<table><tr><td height=3></table>
+	<div>
+		<!----------------------------------------------------->
+		<!---서브 메뉴바-->
+		<!----------------------------------------------------->
+		<table class="s_menubar" cellpadding=5 cellspacing=0>
+			<tr align=center>
+				<td>&nbsp;&nbsp;&nbsp;<a href="javascript:moveToUrl('a11.html');">프리랜서개발자</a>&nbsp;&nbsp;&nbsp;
+				<td>&nbsp;&nbsp;&nbsp;<a href="javascript:moveToUrl('a12.html');">정규직개발자</a>&nbsp;&nbsp;&nbsp;
+			<tr align=center>
+				<td>&nbsp;&nbsp;&nbsp;<a href="javascript:moveToUrl('a21.html');">s21</a>&nbsp;&nbsp;&nbsp;
+				<td>&nbsp;&nbsp;&nbsp;<a href="javascript:moveToUrl('a22.html');">s22</a>&nbsp;&nbsp;&nbsp;
+			<tr align=center>
+				<td>&nbsp;&nbsp;&nbsp;<a href="javascript:moveToUrl('a31.html');">s31</a>&nbsp;&nbsp;&nbsp;
+				<td>&nbsp;&nbsp;&nbsp;<a href="javascript:moveToUrl('a32.html');">s32</a>&nbsp;&nbsp;&nbsp;
+		</table>
+	</div>
+</div>
+
+
+<!--*******************************************************************-->
+<!-- hidden 양식에 선택된 메뉴바의 URL 저장 설정( value 속성값 수정 요망 )-->
+<!--*******************************************************************-->
+<input type="hidden" name="choicedUrl" value="a12.html">
+
+<!--###############################################################################-->
+<!--[공용] 메뉴바 관련 자바스크립트 설정(s)-->
+<!--###############################################################################-->
+<script language="JavaScript">
+
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	// [서브메뉴바 보이기] 함수 선언
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	function showSubMenubar( url ){  
+		try{
+			//-------------------------------------------
+			// 선택된 서브메뉴의 tr 관리하는 jQuery 객체 얻기
+			//-------------------------------------------
+			var trObj = $(".s_menubar tr:has([href*=\"('"+url+"')\"])").eq(0); //[href='"+url+"']
+			//-------------------------------------------
+			// 선택된 서브메뉴 문자열의 A 태그를 없애기
+			//-------------------------------------------
+			var aTagObj = $(".s_menubar tr [href*=\"('"+url+"')\"]"); //[href='"+url+"']
+			var subMenuStr = aTagObj.text();  
+			aTagObj.parent().empty( ).append( "<b style='background-color:#FFEEEE;'>&nbsp;"+subMenuStr+"&nbsp;</b>");
+			//-------------------------------------------
+			// 선택된 서브메뉴를 가진 [메인 메뉴] 문자열의 인덱스 번호 얻기
+			//-------------------------------------------
+			if( choicedMainMenuNo<0 ){
+				choicedMainMenuNo = trObj.parent().children().index(trObj); 
+				if( choicedMainMenuNo==-1 ){
+					alert( "메뉴바에 [" + url + "]의 URL 주소가 없습니다. 점검 바람니다! " );
+				}
+			}
+			//-------------------------------------------
+			// 선택된 서브메뉴를 가진 [메인 메뉴] 문자열에 코딩으로 mouseover 이벤트 일으키기
+			//-------------------------------------------
+			$(".m_menubar th").eq(choicedMainMenuNo).mouseover();
+		}catch(e){  alert( "showSubMenubar(~) 메소드 에러발생! " ); }
+	}
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	// [서브메뉴바] 클릭 시 페이지 이동하는 함수 선언
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	function moveToUrl( url ){  
+		$('[name=choicedUrl]').val( url );
+		location.replace( url );
+	}
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	// 선택한 서브메뉴를 포함하는 메인메뉴의 인덱스번호 저장하는 전역변수선언
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	var choicedMainMenuNo = -1;
+
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	// 메인메뉴/서브메뉴에 CSS 설정하기, 이벤트 설정하기
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	$(".m_menubar th").addClass("mainMenubarCss_mouseOut");
+	$(".s_menubar td").addClass("subMenubarCss");
+	$(".s_menubar tr").hide();
+	//------------------------
+	$(".m_menubar th").hover(
+		function(){
+			$(".m_menubar th").removeClass("mainMenubarCss_mouseOver");
+			$(this).addClass("mainMenubarCss_mouseOver");
+			var thisNo = $(this).parent().children().index(this);
+			$(".s_menubar tr").hide().eq(thisNo).show();
+		}
+		,function(){ }
+	);
+	//------------------------
+	var timer = null;
+	$(".menubar").hover(
+		function(){
+			timer = clearTimeout( timer );
+		}
+		,function(){ 
+			timer = setTimeout(   "showSubMenubar( $('[name=choicedUrl]').val()  );", 1000  	);
+		}
+	);
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	// showSubMenubar( url ) 함수 호출로 선택한 [메인메뉴]와 [서브메뉴] 보이기
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	showSubMenubar( $('[name=choicedUrl]').val() );
+</script>
+<!--******************************************************************************-->
+<!--[공용] 메뉴바 관련 자바스크립트 설정(e)-->
+<!--******************************************************************************-->
+
+</body>
+</html>
+
+
+

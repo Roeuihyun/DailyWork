@@ -1,0 +1,143 @@
+<!-- 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+jquery_test_31_table2_display.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	=>jQuery를 사용하여 테이블의 일부 행을 보였다 안보였다 한다.
+ -->
+<html>
+  <head>
+        <style>.style1 { background-color: #00f; color: #fff; } </style>
+		<script src="jquery-1.5.2.min.js" type="text/javascript"></script>
+        <script>
+			$(document).ready(function() {   
+				// 모든 tr 행을 감추기
+				$('table tbody tr').hide();  
+				// class="group" 을  가진 태그의 부모,즉 tr 을 보이기
+				$('table tbody').find('.group').parent().show();
+				//$('table tbody .group').parent().show();
+				//-------------
+				// class="group" 을  가진 새끼의 부모 즉 tr에 hover 이벤트를 걸기
+				$('tbody tr .group').parent().hover(
+					// $('tbody tr').find(".group").parent().hover( 와 동일
+						function(){  
+							// 마우스를 갖다댄 tr 을 관리하는 JQuery 객체를 obj 변수에 저장
+							var obj = $(this);
+							while(true) {
+								// 현재 tr 다음 tr을 관리하는 JQuery 객체를 obj 변수에 저장
+								obj = obj.next();
+								// 현재 tr 이 없거나 후손 첫번째 td가 colspan=3을 가지고 있으면 반복 중단
+								if( obj.length==0 || obj.find("td:eq(0)").attr("colspan")==3 ) { break; }
+								// 현재 tr 보여라
+								obj.show();
+							}
+							$(this).addClass('style1');
+						} 
+						,function(){   
+							$('table tbody tr').hide();
+							$('table tbody').find('.group').parent().show();
+							$(this).removeClass('style1');
+						}
+				  ); 
+			});
+		</script>
+  </head>
+
+<!-- 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+jquery_test_31_table2_display.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	=>jQuery를 사용하여 테이블의 일부 데이터를 보였다 안보였다 해보자
+ -->
+<body><center> 
+	<table border="1" cellpadding=5 cellspacing=0>
+		<thead>
+			<tr><th width="60">번호<th width="80">이름<th width="60">평균
+		</thead>
+		<tbody>
+			<tr><td colspan=3 class="group" align="center">3-1 반 성적
+			<tr><td>101<td>John<td>87
+			<tr><td>102<td>Naman<td>90
+			<tr><td>103<td>Chirag<td>85
+			<tr><td>104<td>David<td>92
+			<tr><td>105<td>Kelly<td>81
+
+			<tr><td colspan=3 class="group"  align="center">3-2 반 성적
+			<tr><td>106<td>Charles<td>77
+			<tr><td>107<td>Jerry<td>91
+			<tr><td>108<td>Beth<td>75
+			<tr><td>109<td>Caroline<td>82
+			<tr><td>110<td>Hanen<td>71
+
+			<tr><td colspan=3 class="group"  align="center">3-3 반 성적
+			<tr><td>111<td>Douglas<td>57
+			<tr><td>112<td>Tim<td>86
+			<tr><td>113<td>Michael<td>68
+			<tr><td>114<td>Kimbley<td>88
+			<tr><td>115<td>Christina<td>72
+		</tbody>
+	</table> 
+</body>
+
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<참고>다음 코딩들은 동일한 기능이다.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		var obj = $(this);
+		while(true) {
+			obj = obj.next( );
+			if( obj.length==0 || obj.find( ".group" ).length>0  )  { break; }
+			obj.show();
+		}
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		var idx = $(this).parent().children().index(this);
+		var trAllCnt =  $('table tbody tr').length; //alert( idx  );
+		for(var i=idx+1 ; true ; i++) {
+			if( i == trAllCnt  || $('table tbody tr:eq('+i+')').find( ".group" ).length>0  )  { 
+				break; 
+			}
+			$('table tbody tr:eq('+i+')').show();
+		}
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		var idx = $(this).parent().children().index(this);
+		for(var i=idx+1 ; true ; i++) {
+			var obj = $('table tbody tr:eq('+i+')');
+			if( obj.length==0 || obj.find( ".group" ).length>0  )  {
+				break; 
+			}
+			obj.show();
+		}
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+			/*$(document).ready(function() {    
+				$('table tbody tr').hide();
+				$('table tbody').find('.group').parent().show();
+				//-------------
+				$('tbody tr').hover(
+						function(){  
+							if( $(this).find( ".group" ).length==0  )  {  return; };
+							$("tbody *").removeClass('style1');
+							$('table tbody tr').hide();
+							$('table tbody').find('.group').parent().show();
+							//-----------
+							var idx = $(this).parent().children().index(this);
+							var trAllCnt =  $('table tbody tr').length; //alert( idx  );
+							idx = $(this).parent().children().index(this);
+							for(var i=idx+1 ; true ; i++) {
+								var obj = $('table tbody tr:eq('+i+')');
+								if( obj.next( ).length==0 || obj.find( ".group" ).length>0  )  {
+									break; 
+								}
+								obj.show();
+							}
+							//-----------
+							$(this).addClass('style1');
+						} 
+						,function(){   
+							$('table tbody tr').hide();
+							$('table tbody').find('.group').parent().show();
+							$(this).removeClass('style1');
+						}
+				  ); 
+			});*/
+ -->
+

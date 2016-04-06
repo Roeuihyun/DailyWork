@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="jquery-1.6.2.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+	function checkForm(){
+			var data = $(".uid").val();
+			var flag = new RegExp(/^[a-z][a-z0-9_]+$/).test(data);
+			
+			if(flag==false){
+				alert("[아이디]가 비었거나 [영소문자 또는 숫자 또는 _] 로 구성되 있지 않음 재 입력바람!");
+				$(".uid").val("");
+				$(".uid").focus;
+				return;
+			}
+			
+			data = $(".pw").val();
+			
+			flag = new RegExp(/^[a-z0-9_]+$/).test(data);
+			
+			if(flag==false){
+				alert("[암호]가 비었거나 [영소문자 또는 숫자] 로 구성되 있지 않음 재 입력바람!");
+				$(".pw").val("");
+				$(".pw").focus;
+				return;
+			}
+			
+			data = $(".phone").val();
+			flag = new RegExp(/^\d{3,4}-\d{3,4}-\d{3,4}$/).test(data);
+			if(flag==false){
+				alert("[전화번호]가 비었거나 [숫자-숫자-숫자] 로 구성되 있지 않음 재 입력바람!");
+				$(".phone").val("");
+				$(".phone").focus;
+				return;
+			}
+			
+			var count = $('.skill:checked').length;
+			
+			if(count==0){
+				alert("소유스킬은 1개 이상 선택 요망!");
+				return;
+			}
+			
+			var count = $('.school:checked').length;
+			
+			if(count==0){
+				alert("학력 선택 요망!");
+				return;
+			}
+			
+			data = $(".religion").val();
+			if(data==""){
+				alert("종교 선택 요망!");
+				return;
+			}
+			
+			var result = confirm("정말 전송 할까요?");
+			if(result == true){
+				document.regForm.submit();
+			}
+			
+	};
+	
+	function reverseChecked(classN){
+		var obj1 = $('.'+ classN +':checked');
+		var obj2 = $('.'+ classN +':not(:checked)');
+		obj1.attr("checked",false);
+		obj2.attr("checked",true);
+	}
+	
+	function setEmpty(classN){
+		var obj1 = $('.'+ classN +':checked');
+		obj1.attr("checked",false);
+	}
+	
+	function setEmptyAll(){
+		var obj = $("form");
+		
+		obj.find(":checked").attr("checked",false);
+		obj.find("select, textarea, :text,:password,:image").val("");
+	}
+
+</script>
+</head>
+<body>
+
+	<center>
+	
+		<form action="" name="regFrom">
+			[회원가입]
+			<table border=1 cellpadding="5">
+				
+				<tr>
+					<td>아이디
+					<td><input type="text" class="uid" name="uid">
+				</tr>
+				
+				<tr>
+					<td>암호
+					<td><input type="password" class="pw" name="pw">
+				</tr>
+				
+				<tr>
+					<td>전화
+					<td><input type="text" class="phone" name="phone">(번호-번호-번호)
+				</tr>
+				
+				<tr>
+					<td>소유스킬
+						<input type="checkbox" class="skill" name="skill" value="JSP">JSP
+						<input type="checkbox" class="skill" name="skill" value="ASP">ASP
+						<input type="checkbox" class="skill" name="skill" value="PHP">PHP
+						<input type="checkbox" class="skill" name="skill" value="Android">Android
+						&nbsp;
+						<input type="button" value="반전" onclick="reverseChecked('skill');">
+						<input type="button" value="비움" onclick="setEmpty('skill');">
+				</tr>
+				
+				<tr>
+					<td>학력
+					<td>
+						<input type="radio" class="school" name="school" value="1">중졸
+						<input type="radio" class="school" name="school" value="2">고졸
+						<input type="radio" class="school" name="school" value="3">대졸
+				</tr>
+				
+				<tr>
+					<td>종교
+					<td>
+						<select name="religion" class="religion">
+							<option name=""></option>
+							<option name="불교">불교</option>
+							<option name="기독교">기독교</option>
+							<option name="천주교">천주교</option>
+							<option name="이슬람교">이슬람교</option>
+							<option name="무교">무교</option>
+						</select>
+				</tr>
+					
+			</table>
+			<br>
+				
+			<input type="button" value="전송" onclick="checkForm();">
+			<input type="button" value="비움" onclick="setEmptyAll();">
+			<br>
+			
+		</form>
+		
+	</center>
+	
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="jquery-1.6.2.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+
+$(document).ready(function() {  
+	
+	console.log(test());
+	
+	var n = parseInt("123");
+	console.log(n);
+	var o = parseInt("0893");
+	console.log(o);
+	var p = parseInt("0123",10);
+	console.log(p);
+	
+});
+
+function test(){
+	eval("var b=2;");
+	console.log(b);
+	return typeof(b);
+};
+
+
+
+</script>
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+</html>

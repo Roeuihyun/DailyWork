@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+
+		<script src="jquery-1.5.2.min.js" type="text/javascript"></script>
+<style>
+	table,td,th{
+		border-collapse:collapse;
+		border:1px solid #000000;
+		padding:7;
+		font-size:12px;
+		font-weight:bold;
+	}
+	.tbCss{
+		/*border-top:4px solid #663366;
+		border-left:4px solid #663366;
+		border-right:4px solid #663366;font-weight:bold;*/
+		background:#000000;
+		color:#FFFFFF;
+		border-bottom:10px solid #CC0000;
+		
+	}
+</style>
+
+ <head>
+	 <script>		
+		$(document).ready(function() {   
+			$("table td").hover(
+				function(){
+					$(this).addClass("tbCss");
+					$("table td").filter(this).siblings( ).removeClass("tbCss");
+				},
+				function(){
+				}
+			);
+		});
+	 </script>
+ </head>
+
+ <body><center>
+	<table>
+	<tr>
+		<td>개발자</td>
+		<td>정규직</td>
+		<td>프로젝트</td>
+	</tr>
+	<tr>
+		<td colspan=40 bgcolor=red height=2>
+	</tr>
+	</table>
+ </body>
+</html>

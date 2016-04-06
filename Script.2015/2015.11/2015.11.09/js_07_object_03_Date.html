@@ -1,0 +1,108 @@
+
+
+<!------------------------------------------
+js_07_object_03_Date.html
+
+Date 객체 예제
+------------------------------------------>
+<html>
+	<head>
+	<script>
+		//-----------------------
+		//0~6 까지의 숫자를 요일문자로 바꿔 리턴하는 함수
+		//-----------------------
+		function getWeek( num ) {
+			var week = "";
+			if(num==0)  week="일요일";
+			else if(num==1) week="월요일";
+			else if(num==2) week="화요일";
+			else if(num==3) week="수요일";
+			else if(num==4) week="목요일";
+			else if(num==5) week="금요일";
+			else if(num==6) week="토요일";
+			return week;
+		}
+		</script>
+	</head>
+<body>
+
+	<script>
+		//---------------------
+		//현재 시스템 날짜 소유한 Date 객체 생성
+		//---------------------
+		var today = new Date( );
+		//---------------------
+		//2002.8.3 날짜 소유한 Date 객체 생성
+		//---------------------
+		var birthDay = new Date(2002, 7, 3);
+		//---------------------
+		// 2002.8.3 부터 현재 까지의 날짜를 구함. (소수점 1째 자리 버림)
+		//---------------------
+		var interval = Math.floor(    
+			(  today.getTime( )-birthDay.getTime( )  ) / 1000 / (60*60*24)
+		);
+		//---------------------
+		document.write(
+			"현재 시간 => " + 
+			today.getFullYear( ) + "년 " + 
+			(today.getMonth( ) + 1) + "월 " + 
+			today.getDate( ) + "일 "   + 
+			getWeek( today.getDay( ) )  +  " " + 
+			today.getHours( ) + "시 " + 
+			today.getMinutes( ) + "분 " + 
+			today.getSeconds( ) + "초" + "<br><br>"
+		);
+		document.write(
+			"사오정 생일 => " + 
+			birthDay.getFullYear( ) + "년 " + 
+			(birthDay.getMonth( ) + 1) + "월 " + 
+			birthDay.getDate( ) + "일 "   + 
+			getWeek( birthDay.getDay( ) )  +  " " + 
+			birthDay.getHours( ) + "시 " + 
+			birthDay.getMinutes( ) + "분 " + 
+			birthDay.getSeconds( ) + "초" + "<br><br>"
+		);
+		document.write( "오늘로 사오정 출생 후 "+ interval +"일이 지났음!<br><hr>" );
+
+		document.write( today.toLocaleString()+ "<br><br>");
+		document.write( today.toLocaleDateString()+ "<br><br>");
+		document.write( today.toLocaleTimeString()+ "<br><br>");
+
+		document.write( today.toString()+ "<br><br>");
+		document.write( today.toDateString()+ "<br><br>");
+		document.write( today.toTimeString()+ "<br><br>");
+	</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,36 @@
+
+<!---------------------------------------------------------------
+<예제설명>조건문 switch 문을 사용하여 평균을 입력받아 학점을 출력한다.
+<!-- 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+js_04_04_switch.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<예제목적>switch 구문의 사용법을 숙지하고 if 구문과의 차이점을 인지한다.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ -->
+
+<html>
+	<head><title>JAVA SCRIPT Program</title></head>
+	<body>
+		<script>
+		var avg = prompt("평균를 입력하세요.");
+		var num = Math.floor(avg/10);    //--> 나눈 후에 몫을 구하고 소수점 버림해서 변수에 저장.
+		//----------------------------------
+		switch(num) {
+			case 10 :  // num이 10 이면. <주의>break 구문이 없으면 무조건 다음 조건식의 실행구문 실행.
+			case 9 : document.write("A 학점"); break;  // num이 9 이면 A학점 출력 후 switch 구문 탈출.
+			case 8 : document.write("B 학점"); break;  // num이 8 이면 B학점 출력 후 switch 구문 탈출.
+			case 7 : document.write("C 학점"); break;  // num이 7 이면 C학점 출력 후 switch 구문 탈출.
+			case 6 : document.write("D 학점"); break;  // num이 6 이면 D학점 출력 후 switch 구문 탈출.
+			case 5 :                                    // num이 5 면 무사 통과하고 다음 조건의 실행구문 실행.
+			case 4 :                                   // num이4 면 무사 통과하고 다음 조건의 실행구문 실행.
+			case 3 :                                   // num이3 면 무사 통과하고 다음 조건의 실행구문 실행. 
+			case 2 :                                   // num이2 면 무사 통과하고 다음 조건의 실행구문 실행. 
+			case 1 :                                   // num이1 면 무사 통과하고 다음 조건의 실행구문 실행. 
+			case 0 : document.write("F 학점"); break;
+			default : document.write("잘못된 값입니다");
+		}
+		document.write("<br>---------------------<br>종료");
+		</script>
+	</body>
+</html>

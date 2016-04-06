@@ -1,0 +1,93 @@
+
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+js_07_object_02.1_Array.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Array 객체 예제. 2차원 배열을 사용하여 학생 성적을 총점으로 오름차순 정렬하기
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+--->
+<html>
+<head>
+	<script>
+			//-------------------------------------------------
+			// 1차원 배열을 받아 한 학생의 총점을 계산하여 리턴하는 함수 선언
+			//-------------------------------------------------
+			function getTot( arr ){
+				var tot = 0;
+				for(var i=2 ; i<arr.length ; i++){
+					tot = tot + arr[i];
+				}
+				return tot;
+			}
+	</script>
+</head>
+<body>
+
+  <script>
+		//----------------------------------------------------------------
+		// 2차원 Array 객체 생성
+		//----------------------------------------------------------------
+		var students = [
+			[1, "사오정", 50 , 50]
+			,[2, "저팔계", 60 , 50]
+			,[3, "손오공", 50 , 20]
+		];
+				//------------------------------------
+				// 다음 처럼 2차원 Array 객체 생성도 가능
+				//------------------------------------
+				/*
+				var students= new Array( );
+				students.push(  new Array(1, "사오정", 50 , 50) );
+				students.push(  new Array(2, "저팔계", 60 , 50) );
+				students.push(  new Array(3, "손오공", 50 , 20) );
+				*/
+		//----------------------------------------------------------------
+		// 2차원 Array 객체 안의 총점을 계산하여 총점 내림차순으로 정렬
+		//----------------------------------------------------------------
+		students.sort( function(left, right){
+				return getTot(right)-getTot(left);
+		});
+		//----------------------------------------------------------------
+		// 2차원 Array 객체의 데이터를 테이블로 출력
+		//----------------------------------------------------------------
+		document.write( "<table border=1 cellpadding=5 align=center>" );	
+		document.write( "<tr><th>번호<th>이름<th>국어<th>수학<th>총점" );	
+		//---
+		for(var i=0 ; i<students.length ; i++){
+			document.write( "<tr>"  );
+			for(var j=0 ; j<students[i].length ; j++){
+				document.write( "<td>" + students[i][j] + " " );				
+			}
+			document.write( "<td>" +  getTot( students[i] )  );
+		}
+		document.write( "</table>" );
+		/*//----------------------------------------------------------------
+		// 2차원 Array 객체의 데이터를 테이블로 출력
+		//----------------------------------------------------------------
+		document.write( "<table border=1 cellpadding=5 align=center>" );	
+		document.write( "<tr><th>번호<th>이름<th>국어<th>수학<th>총점" );	
+		//---
+		for(var i in students ){
+			document.write( "<tr>"  );
+			for(var j in students[i] ){
+				document.write( "<td>" + students[i][j] + " " );				
+			}
+			document.write( "<td>" +  getTot( students[i] )  );
+		}
+		document.write( "</table>" );*/
+  </script>
+
+</body>
+</html>
+
+
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<문>위  2차원 Array 객체의 상상도를 그리면?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<문>국어 오름 차순으로 정력하려면 어디를 수정하면되나?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	=> return getTot(right)-getTot(left); 를 return getTot(left)-getTot(right); 로 수정
+--->

@@ -1,0 +1,82 @@
+<!-- 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+jquery_test_30_2_animation.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	=>이미지에 마우스를 대면 지정한 곳에서 서서히 나타난다.
+	=>hover(~). fadeTo(~) 메소드를 숙지한다.
+-->
+<html>
+  <head>
+		<style>
+			.small img{ border:none;margin:10px;width:60px; height:60px; }
+			.large{width:200px; height:200px;}
+			.hover{color: blue ; background-color:#D3D3E9 }
+		</style>
+        <script src="jquery-1.6.2.min.js" type="text/javascript"></script>  
+        <script>
+			$(document).ready(function() {
+				$("td").find("p").css({
+					"font-size" : 12,
+					"font-wegiht":"bold"
+				});
+				
+				$(".small").hover(
+					function(){
+						$(this).parent().addClass("hover");
+						
+						var imgname = $(this).attr("href");
+						
+						$(".large").fadeTo(
+							"slow",0,function(){$(".large").attr("src",imgname);}		
+						).fadeTo("slow",1);
+						
+					},
+					function(){
+						$(this).parent().removeClass("hover");
+					}
+				
+				);
+				
+			});
+		</script>  
+
+  </head>
+<!-- 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+jquery_test_30_2_animation.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	=>이미지에 마우스를 대면 지정한 곳에서 서서히 나타난다.
+	=>hover(~). fadeTo(~) 메소드를 숙지한다.
+-->
+<body>
+	<table border="1" cellspacing=0>
+		<tr>
+			<td width=130 align=center> 
+				<a href="img/P1001.jpg" class="small"><img src="img/P1001.jpg"></a>
+				<p>P1001, 100$</p>
+			</td>
+			<td rowspan="4" width=350 align=center>
+				<img src="img/P1001.jpg" class="large">
+			</td>
+		</tr>
+		<tr>
+			<td align=center>
+				<a href="img/P1002.jpg" class="small">
+				<img src="img/P1002.jpg"></a>
+				<p>P1002, 150$</p>
+			</td>
+		</tr>
+		<tr>
+			<td align=center>
+				<a href="img/P1003.jpg" class="small"><img src="img/P1003.jpg"></a>
+				<p>P1003, 90$
+			</td>
+		</tr>
+		<tr>
+			<td align=center> 
+				<a href="img/P1004.jpg" class="small"><img src="img/P1004.jpg"></a>
+				<p>P1004, 200$
+			</td>
+		</tr>
+	</table>
+</body>

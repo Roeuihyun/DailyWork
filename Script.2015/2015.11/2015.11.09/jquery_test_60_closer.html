@@ -1,0 +1,85 @@
+<!-- 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+jquery_test_30_2_animation.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	=>이미지에 마우스를 대면 지정한 곳에서 서서히 나타난다.
+	=>hover(~). fadeTo(~) 메소드를 숙지한다.
+-->
+<html>
+  <head>
+        <script src="jquery-1.5.2.min.js" type="text/javascript"></script>  
+        <script>
+			//$(document).ready(function() {
+			function setButton1( ){
+				for( var i=1 ; i<=3 ; i++){
+					$(".x"+i).click(function(){
+						alert(i);
+					});
+				}
+			}
+			function setButton2( ){
+				for( var i=1 ; i<=3 ; i++){
+					(function(){
+						var ii = i;
+						$(".y"+ii).click(function(){
+							alert(ii);
+						});
+					})();
+				}
+			}
+
+			function getFunc( ){
+				var no = 0;
+				return function(){
+					document.write( ++no );
+				}
+			}
+			var func = getFunc( ); 
+			func( );
+			func( );
+			func( );
+			func( );
+
+		</script>  
+
+  </head>
+<!-- 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+jquery_test_60_closer.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	=>이미지에 마우스를 대면 지정한 곳에서 서서히 나타난다.
+	=>hover(~). fadeTo(~) 메소드를 숙지한다.
+-->
+<body onload="setButton1();setButton2();">
+	<br>
+	<input type="button" value="넘버1" class="x1">
+	<input type="button" value="넘버2" class="x2">
+	<input type="button" value="넘버3" class="x3"><br><br>
+
+	
+	<input type="button" value="번호1" class="y1">
+	<input type="button" value="번호2" class="y2">
+	<input type="button" value="번호3" class="y3"><br><br>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

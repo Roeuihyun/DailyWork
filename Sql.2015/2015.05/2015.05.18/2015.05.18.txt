@@ -1,0 +1,63 @@
+과목 Ⅱ
+
+SQL 기본 및 활용
+
+제 1장 SQL 기본
+
+제 1절 관계형 데이터베이스 개요
+
+1. 데이터 베이스
+
+많은 사용자들은 보다 효율적인 데이터의 관리 뿐만 아니라 예기치 못한 사건으로 인한 데이터의 손상을 피하고, 
+필요시 필요한 데이터를 복구하기 위한 강력한 기능의 소프트웨어를 필요로 하게 되었고,
+이러한 기본적인 요구사항을 만족시켜주는 시스템을 DBMS(DataBase Management System)라고 한다.
+
+파일 시스템은 분산된 데이터간의 정합성을 유지하는데 과다한 노력이 필요하게 되고 데이터의 정합성을 보장하기 힘들게 된다.
+이러한 문제는 관계형 데이터베이스는 정규화를 통한 합리적인 테이블 모델링을 통해 이상(ANOMALY)현상을 제거하고 데이터 중복을 피할 수 있으며,
+동시성 관리, 병행 제어를 통해 많은 사용자들이 동시에 데이터를 공유 및 조작할 수 있는 기능을 제공하고 있다.
+
+ISO : International Organization for Standardization (품질경영시스템에 대한 국제규격)
+ANSI : American National Standards Institute (미국국립표준협회)
+
+2. SQL(Structured Query Language)
+SQL은 관계형 데이터베이스에서 데이터의 정의, 데이터 조작, 데이터 제어를 하기 위해 사용하는 언어이다.
+SQL의 목표는 정확한 데이터를 출력하는 것 이며, 튜닝의 목적은 시스템에 큰 영향을 주는 SQL을 가장 효과적(응답시간, 자원 활용 최소화)으로 작성하는것이 목표이다.
+
+1986년부터 ANSI/ISO를 통해 표준화되고 정의된 SQL 기능은 각 벤더별 DBMS 개발의 목표가 된다.
+각 벤더별 관계형 데이터 베이스는 표준화된 SQL 이외에도 벤더 차별화 및 이용 편리성을 위해 추가 기능이나 내장 함수 등에서 독자적으로 개발을 계속 진행하고 있다.
+
+SQL 문장과 관련된 용어 중에서 먼저 테이블에 대한 내용은 건드리지 않고 단순히 조회를 하는 SELECT 문장이 있고,
+테이블에 들어있는 데이터에 변경을 가하는 UPDATE, DELETE, INSERT 문장은 테이블에 들어있는 데이터들을 조작하는 종류의 SQL 문장들이다.
+그 외, 테이블을 수정하고, 변경하고 삭제하는 테이블 관련 SQL 문장들이 있다.
+
+DML : Data Manipulation Language (데이터 조작어) 데이터베이스에 들어 있는 데이터를 조회,입력,갱신,삭제를 하는 명령어들을 말한다. SELECT, INSERT, UPDATE, DELETE 가 있다.
+DDL : Data Definition Language (데이터 정의어) 테이블과 같은 데이터 구조를 정의하는데 하는 명령어로 구조를 생성,변경,삭제,이름변경을 하는 명령어들을 말한다. CREATE, ALTER, DROP, RENAME, TRUNCATE 가 있다.
+DCL : Data Control Language (데이터 제어어) 데이터베이스에 접근하고 객체들을 사용하도록 권한을 주고 회수하는 명령어를 DCL이라고 부른다. GRANT, REVOKE가 있다.
+TCL : Transaction Control Language (트랜젝션 제어어) 논리적인 작업의 단위를 묶어서 DML에 의해 조작된 결과를 작업단위(트랜젝션) 별로 제어하는 명령어를 말한다. COMMIT,ROLLBACK,SAVEPOINT가 있다.
+
+3. TABLE
+
+테이블은 실제로 데이터를 저장하는 객체로서 관계형 데이터 베이스의 기본 단위이다.
+
+※오라클 기준
+1) Block
+- 오라클 DB를 구성하는 최소단위(bit)
+- I/O의 기본단위
+
+2) Extent
+- 공간 할당의 기본단위(byte)
+- 연속된 Block들의 집합
+
+3) Segment 
+- Tablespace에 저장되는 Object 단위
+
+4) Tablespace 
+- 오라클 DB의 Data들이 저장되는 가장 큰 영역(MS SQL에서 DB개념)
+- 논리적 공간, 파일
+
+http://www.dbguide.net/db.db?cmd=view&boardUid=148183&boardConfigUid=9&categoryUid=216&boardIdx=133&boardStep=1
+
+트랜젝션: 컴퓨터로 처리하는 작업의 단위 더이상 쪼갤수 없는 가장 작은 단위,업무를 의미한다.
+
+erd modeler 종류
+

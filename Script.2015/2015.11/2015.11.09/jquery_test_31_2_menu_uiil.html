@@ -1,0 +1,73 @@
+<html>
+	<head>
+		<title>JQuery Examples</title>
+		<script src="jquery-1.5.2.min.js" type="text/javascript"></script>
+		<style>
+			a{ text-decoration: none; color: #000;}
+			ul{ margin: 0; list-style: none; }
+			ul.dropdown li {  float: left;  background: cyan; }  /*float: left => 왼쪽에서 오른쪽으로 나열*/
+			ul.dropdown a:hover {background: #0f0; color: #00f; }
+			ul.dropdown li a { display: block; padding: 4px; border-right: 0px solid #000; }
+			ul.dropdown ul { width: 210px; visibility: hidden; position: absolute;  }
+			ul.dropdown ul li { background: yellow; border-bottom: 0px solid #000; }  /*=>서브메뉴 CSS 설정*/
+			ul.dropdown ul li a { border-right: none; width: 100%; } 
+			ul.dropdown ul ul { left: 100%; top: 0; }
+			.hoverCss {position: relative; }
+		</style>
+		<script type="text/javascript">
+			$(document).ready(function( ) {  
+				$("ul.dropdown li").hover(
+					function( ){
+						$(this).addClass("hoverCss");
+						$('ul:first',this).css('visibility', 'visible');
+					}, 
+					function( ){
+						$(this).removeClass("hoverCss");
+						$('ul:first',this).css('visibility', 'hidden');  
+							//<참고>visibility:hidden  ---> 차지한 공백 유지하고 안보이게 함.
+							//<참고>display:none     --->  차지한 공백 없애고 안보이게 함.
+					}
+				);
+				$("ul.dropdown li ul li:has(ul)").find("a:first").append(" >>");
+			});
+		</script>
+	</head>
+	<body>
+	<ul class="dropdown">
+		<li><a href="http://example.com">&nbsp;&nbsp;Books&nbsp;&nbsp;</a>
+			<ul>
+				<li><a href="http://example.com">Programming</a></li>
+				<li><a href="http://example.com">Web Development</a>
+					<ul>
+						<li><a href="http://example.com">.Net</a></li>
+						<li><a href="http://example.com">JSP</a></li>
+					</ul>
+				</li>
+				<li><a href="http://example.com">RDBMS</a></li>
+				<li><a href="http://example.com">Web Services</a></li>
+				<li><a href="http://example.com">Open Source</a></li>
+			</ul>
+		</li>
+		<li><a href="http://example.com">&nbsp;&nbsp;Movies&nbsp;&nbsp;</a>
+			<ul>
+				<li><a href="http://example.com">Movie Reviews</a></li>
+				<li><a href="http://example.com">Celebrity Interviews</a></li>
+				<li><a href="http://example.com">Latest Hollywood M</a>
+					<ul>
+						<li><a href="http://example.com">Arnold Schwarzenegger</a></li>
+						<li><a href="http://example.com">Sylvester Stallone</a></li>
+						<li><a href="http://example.com">Bruce Willis</a></li>
+					</ul>
+				</li>
+				<li><a href="http://example.com">Action Movies</a>
+					<ul>
+						<li><a href="http://example.com">Casino Royale</a></li>
+						<li><a href="http://example.com">Rambo III</a></li>
+					</ul>
+				</li>
+				<li><a href="http://example.com">Comedy Movies</a></li>
+			</ul>
+		</li>
+	</ul>
+	</body>
+</html>

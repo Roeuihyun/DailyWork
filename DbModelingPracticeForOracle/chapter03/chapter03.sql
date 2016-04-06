@@ -1,0 +1,456 @@
+--[PAGE45][집합생성] 입사일이 2012년 12월인 사원의 집합을 추출
+SELECT SABUN
+FROM INSA
+WHERE SABUN LIKE '201212%'
+ORDER BY SABUN DESC;
+
+--[PAGE45][유한집합의 생성] 입사일이 2012년 12월 31일에서 2013년 1월 5일까지인 사원의 집합을 추출
+SELECT SABUN
+FROM INSA
+WHERE SABUN BETWEEN '2012123101' AND '2013010501'
+ORDER BY SABUN DESC;
+
+--[PAGE50][프로젝트 참여 정보 조회]
+SELECT T4.PJT_NAME
+      ,TS1.SABUN
+      ,TS1.CMP_REG_NO
+      ,TS1.CMP_NAME
+      ,TS1.NAME
+      ,T3.SABUN PJT_SABUN
+FROM INSA_EMP_PJT T3    -- 사원별 프로젝트
+    ,INSA_RECT_NOTICE T4    -- 채용공고
+    ,(
+     SELECT T2.SABUN
+           ,T1.CMP_REG_NO
+           ,T1.CMP_NAME
+           ,T1.CMP_KIND
+           ,T2.NAME
+     FROM INSA_COMPANY T1   --업체
+         ,INSA T2   --인사마스터
+     WHERE T1.CMP_REG_NO = T2.CMP_REG_NO
+    ) TS1
+WHERE T3.RECT_REG_NO = T4.RECT_REG_NO
+AND TS1.SABUN = T3.SABUN
+ORDER BY T3.RECT_REG_NO;
+
+--[PAGE52]<예제> 정직원 중 서울에 사는 직원의 결과를 조회하시오
+SELECT SABUN
+      ,ENG_NAME
+      ,ADDR1
+      ,JOIN_GBN_CODE
+FROM INSA
+WHERE ADDR1 LIKE '서울%'
+MINUS
+SELECT I.SABUN
+      ,I.ENG_NAME
+      ,I.ADDR1
+      ,I.JOIN_GBN_CODE
+FROM INSA I
+WHERE REGEXP_LIKE(I.JOIN_GBN_CODE,'(CMP|FRE|CNT)');
+
+SELECT SABUN
+      ,ENG_NAME
+      ,ADDR1
+      ,JOIN_GBN_CODE
+FROM INSA
+WHERE ADDR1 LIKE '서울%'
+AND JOIN_GBN_CODE = 'RGL';
+
+--[PAGE53]<예제> ERD를 통해 전산에 등록된 각 업체별 인력의 수와 데이터를 추출해 보기
+SELECT T2.CMP_NAME
+      ,NVL(COUNT(T1.SABUN),'0') AS SAWON_COUNT
+      ,MAX(T2.CMP_REG_NO) AS CMP_REG_NO
+      ,MAX(T2.DIS_YN) AS DIS_YN
+FROM INSA T1
+    ,INSA_COMPANY T2
+WHERE T1.CMP_REG_NO(+) = T2.CMP_REG_NO
+GROUP BY T2.CMP_NAME
+ORDER BY CMP_REG_NO;
+
+SELECT T2.CMP_NAME
+      ,NVL(COUNT(T1.SABUN),'0') AS SAWON_COUNT
+      ,MAX(T2.CMP_REG_NO) AS CMP_REG_NO
+      ,MAX(T2.DIS_YN) AS DIS_YN
+FROM INSA T1 RIGHT OUTER JOIN INSA_COMPANY T2
+ON T1.CMP_REG_NO = T2.CMP_REG_NO
+GROUP BY T2.CMP_NAME
+ORDER BY CMP_REG_NO;
+
+--[PAGE54][Cartesian Join의 SQL 적용 예]
+SELECT I.SABUN
+      ,I.JOIN_DAY
+      ,E.RECT_REG_NO
+FROM INSA I
+    ,INSA_EMP_PJT E
+ORDER BY E.RECT_REG_NO;
+
+SELECT I.SABUN
+      ,I.JOIN_DAY
+      ,E.RECT_REG_NO
+FROM INSA I CROSS JOIN INSA_EMP_PJT E
+ORDER BY E.RECT_REG_NO;
+
+--[PAGE55][DUAL 테이블 사용]
+SELECT *
+FROM DUAL;
+
+--[PAGE56][집합 창출의 예]
+SELECT '20090101' AS SABUN
+      ,'이호상' AS NAME 
+FROM DUAL
+UNION
+SELECT '20090102' AS SABUN
+      ,'홍길동' AS NAME
+FROM DUAL;
+
+--[PAGE57][DUAL 테이블 활용]
+SELECT GREATEST('1996','1222')
+FROM DUAL;
+SELCT LEAST('1996','1222')
+FROM DUAL;
+SELECT INSTR('CORPORATE FLOOR','OR',3,2) "INSTR"
+FROM DUAL;
+SELECT '''CHARACTER STRING IN QOUTES''' || 'AAA' || '''AA''' RESULT
+FROM DUAL;
+
+--[PAGE57][COPY_T테이블 생성]
+CREATE TABLE COPY_T
+AS
+SELECT ROWNUM AS COL_1
+      ,TO_CHAR(ROWNUM,'009') AS COL_2 --'009' 자리수는 3자리 이며 앞에 0을 체운다.
+FROM CMM_CODE_DETAIL
+WHERE ROWNUM <101;
+
+SELECT *
+FROM COPY_T;
+
+--[PAGE58][COPY_T 테이블의 SQL 적용 예]
+SELECT DECODE(T2.COL_1,1,SABUN,'합계') AS SABUN
+      ,DECODE(T2.COL_1,1,NAME,'합계') AS NAME
+      ,COUNT(DECODE(T2.COL_1,1,NAME,'합계')) AS TOTAL
+FROM INSA T1
+    ,COPY_T T2
+WHERE T1.JOIN_GBN_CODE = 'RGL' -- 정직원
+AND T2.COL_1 < 3
+GROUP BY DECODE(COL_1,1,SABUN,'합계')
+        ,DECODE(COL_1,1,NAME,'합계')
+ORDER BY SABUN;
+
+--[PAGE59][카티젼 조인의 SQL 적용 예]
+SELECT *
+FROM (
+    SELECT '20090101' AS SABUN
+          ,'이호상' AS NAME
+    FROM DUAL
+    UNION
+    SELECT '20090102' AS SABUN
+          ,'홍길동' AS NAME
+    FROM DUAL    
+    UNION
+    SELECT '20090103' AS SABUN
+          ,'A' AS NAME
+    FROM DUAL    
+    UNION
+    SELECT '20090104' AS SABUN
+          ,'B' AS NAME
+    FROM DUAL        
+    ) T2 ;
+
+--[PAGE60][카티젼 조인이 아닌 사번으로 조인된 실행쿼리]
+SELECT *
+FROM (
+    SELECT '20090101' AS SABUN
+          ,'이호상' AS NAME
+    FROM DUAL
+    UNION
+    SELECT '20090102' AS SABUN
+          ,'홍길동' AS NAME
+    FROM DUAL    
+    ) T1
+    ,(
+    SELECT '20090101' AS SABUN
+          ,'A' AS GUBUN
+    FROM DUAL    
+    UNION
+    SELECT '20090102' AS SABUN
+          ,'B' AS GUBUN
+    FROM DUAL        
+    ) T2 
+WHERE T1.SABUN = T2.SABUN ;
+
+--[PAGE61][3개의 테이블로 JOIN된 실행 쿼리]
+SELECT DECODE(NO,'02',T1.SABUN,'합계')
+      ,DECODE(NO,'02',T1.NAME,'-')
+      ,DECODE(NO,'02',T2.GUBUN,'-')
+      ,COUNT(T2.GUBUN)
+FROM (
+    SELECT '20090101' AS SABUN
+          ,'이호상' AS NAME
+    FROM DUAL
+    UNION
+    SELECT '20090102' AS SABUN
+          ,'홍길동' AS NAME
+    FROM DUAL    
+    ) T1
+    ,(
+    SELECT '20090101' AS SABUN
+          ,'A' AS GUBUN
+    FROM DUAL    
+    UNION
+    SELECT '20090102' AS SABUN
+          ,'B' AS GUBUN
+    FROM DUAL        
+    ) T2 
+    ,(
+    SELECT '01' AS NO
+    FROM DUAL
+    UNION
+    SELECT '02' AS NO
+    FROM DUAL
+    ) T3
+WHERE T1.SABUN = T2.SABUN
+GROUP BY DECODE(NO,'02',T1.SABUN,'합계')
+      ,DECODE(NO,'02',T1.NAME,'-')
+      ,DECODE(NO,'02',T2.GUBUN,'-');
+
+--[PAGE62]<예제> 사번'2012121201'인 직원의 고용형태와 참여하고 있는 프로젝트 번호를 조회하시오.
+SELECT T1.SABUN
+       ,T1.JOIN_GBN_CODE
+       ,T2.RECT_REG_NO
+FROM INSA T1
+     ,INSA_EMP_PJT T2
+WHERE T1.SABUN = '2012121201'
+AND T1.SABUN = T2.SABUN;
+
+SELECT T1.SABUN
+       ,T1.JOIN_GBN_CODE
+       ,T2.RECT_REG_NO
+FROM INSA T1 INNER JOIN INSA_EMP_PJT T2
+ON T1.SABUN = '2012121201'
+AND T1.SABUN = T2.SABUN;
+
+--[PAGE63]<예제> TABLE_1과 TABLE_2를 SABUN을 조인의 연결고리로 하여 INNER JOIN을 하자.
+SELECT T1.SABUN
+       ,NAME
+       ,AGE
+       ,PHONE
+       ,T2.SABUN
+       ,ACAD_ABILITY
+       ,MAJOR_STUDY
+       ,GRAT_YM
+FROM TABLE_1 T1
+     ,TABLE_2 T2
+WHERE T1.SABUN = T2.SABUN;
+
+SELECT T1.SABUN
+       ,NAME
+       ,AGE
+       ,PHONE
+       ,T2.SABUN
+       ,ACAD_ABILITY
+       ,MAJOR_STUDY
+       ,GRAT_YM
+FROM TABLE_1 T1 INNER JOIN TABLE_2 T2
+ON T1.SABUN = T2.SABUN;
+
+--[PAGE64]<예제> 사원번호와 그 사원이 참여한 프로젝트 번호를 조회할 것
+SELECT I.SABUN INSA_SABUN
+       ,I.JOIN_GBN_CODE
+       ,E.SABUN EMP_SABUN
+       ,E.RECT_REG_NO
+       ,COUNT(*) OVER()
+FROM INSA I
+     ,INSA_EMP_PJT E
+WHERE I.SABUN = E.SABUN(+);
+
+SELECT I.SABUN INSA_SABUN
+       ,I.JOIN_GBN_CODE
+       ,E.SABUN EMP_SABUN
+       ,E.RECT_REG_NO
+       ,COUNT(*) OVER()
+FROM INSA I LEFT OUTER JOIN INSA_EMP_PJT E
+ON I.SABUN = E.SABUN;
+
+--[PAGE66]<예제> 사원정보와 그 사원의 학력을 조회할 것
+SELECT T1.SABUN
+       ,NAME
+       ,AGE
+       ,PHONE
+       ,T2.SABUN
+       ,ACAD_ABILITY
+       ,MAJOR_STUDY
+       ,GRAT_YM
+FROM TABLE_1 T1
+     ,TABLE_2 T2
+WHERE T1.SABUN = T2.SABUN(+);
+
+SELECT T1.SABUN
+       ,NAME
+       ,AGE
+       ,PHONE
+       ,T2.SABUN
+       ,ACAD_ABILITY
+       ,MAJOR_STUDY
+       ,GRAT_YM
+FROM TABLE_1 T1 LEFT OUTER JOIN TABLE_2 T2
+ON T1.SABUN = T2.SABUN;
+
+--[PAGE67]<예제> 학력정보를 기준으로 사원을 조회하시오
+SELECT T1.SABUN
+       ,NAME
+       ,AGE
+       ,PHONE
+       ,T2.SABUN
+       ,ACAD_ABILITY
+       ,MAJOR_STUDY
+       ,GRAT_YM
+FROM TABLE_1 T1
+     ,TABLE_2 T2
+WHERE T1.SABUN(+) = T2.SABUN;
+
+SELECT T1.SABUN
+       ,NAME
+       ,AGE
+       ,PHONE
+       ,T2.SABUN
+       ,ACAD_ABILITY
+       ,MAJOR_STUDY
+       ,GRAT_YM
+FROM TABLE_1 T1 RIGHT OUTER JOIN TABLE_2 T2
+ON T1.SABUN = T2.SABUN;
+
+--[PAGE68]<예제> 사원정보와 학력정보를 각각 기준으로 하여 조회를 하되 중복을 제거하여 조회할 것
+SELECT T1.SABUN
+       ,NAME
+       ,AGE
+       ,PHONE
+       ,T2.SABUN
+       ,ACAD_ABILITY
+       ,MAJOR_STUDY
+       ,GRAT_YM
+FROM TABLE_1 T1
+     ,TABLE_2 T2
+WHERE T1.SABUN(+) = T2.SABUN
+UNION
+SELECT T1.SABUN
+       ,NAME
+       ,AGE
+       ,PHONE
+       ,T2.SABUN
+       ,ACAD_ABILITY
+       ,MAJOR_STUDY
+       ,GRAT_YM
+FROM TABLE_1 T1
+     ,TABLE_2 T2
+WHERE T1.SABUN = T2.SABUN(+);
+
+SELECT T1.SABUN
+       ,NAME
+       ,AGE
+       ,PHONE
+       ,T2.SABUN
+       ,ACAD_ABILITY
+       ,MAJOR_STUDY
+       ,GRAT_YM
+FROM TABLE_1 T1 FULL OUTER JOIN TABLE_2 T2
+ON T1.SABUN = T2.SABUN;
+
+--[PAGE69][OUT JOIN의 잘못된 예]
+SELECT T1.SABUN
+       ,T1.NAME
+       ,T1.AGE
+       ,T1.PHONE
+       ,T2.SABUN
+       ,T2.ACAD_ABILITY
+       ,T2.MAJOR_STUDY
+       ,T2.GRAT_YM
+FROM TABLE_1 T1
+     ,TABLE_2 T2
+WHERE T1.SABUN = T2.SABUN(+)     
+AND T2.ACAD_ABILITY = '대졸';
+
+--[PAGE69][OUT JOIN의 올바른 예]
+SELECT T1.SABUN
+       ,T1.NAME
+       ,T1.AGE
+       ,T1.PHONE
+       ,T2.SABUN
+       ,T2.ACAD_ABILITY
+       ,T2.MAJOR_STUDY
+       ,T2.GRAT_YM
+FROM TABLE_1 T1
+     ,TABLE_2 T2
+WHERE T1.SABUN = T2.SABUN(+)     
+AND T2.ACAD_ABILITY(+) = '대졸';
+
+--[PAGE71]<예제> 사원 중 고졸은 등급을 TABLE_3에서 가져오고 대졸은 일괄 100점을 주며, TABLE_2에 데이터가 없는 사원은 점수를 주지 않는다.
+--[에러발생 예제_1]
+SELECT T1.SABUN
+       ,T1.NAME
+       ,T1.AGE
+       ,T1.PHONE
+       ,T2.SABUN
+       ,T2.ACAD_ABILITY
+       ,T2.MAJOR_STUDY
+       ,T2.GRAT_YM
+       ,T3.ACAD_ABILITY
+FROM TABLE_1 T1
+     ,TABLE_2 T2
+     ,TABLE_3 T3
+WHERE T1.SABUN = T2.SABUN(+)     
+AND T2.ACAD_ABILITY(+) = '대졸'
+AND T2.ACAD_ABILITY(+) = T3.ACAD_ABILITY(+);
+
+--[에러발생 예제_2]
+SELECT T1.SABUN
+       ,T1.NAME
+       ,T1.AGE
+       ,T1.PHONE
+       ,T2.SABUN
+       ,T2.ACAD_ABILITY
+       ,T2.MAJOR_STUDY
+       ,T2.GRAT_YM
+       ,T3.ACAD_ABILITY
+FROM TABLE_1 T1
+     ,TABLE_2 T2
+     ,TABLE_3 T3
+WHERE T1.SABUN = T2.SABUN(+)     
+AND T2.ACAD_ABILITY(+) = '대졸'
+AND T2.ACAD_ABILITY(+) = T3.ACAD_ABILITY;
+
+--[PAGE72][OUT JOIN의 올바른 예_1]
+SELECT TT2.SABUN
+       ,TT2.ACAD_ABILITY
+       ,TT2.MAJOR_STUDY
+       ,TT2.GRAT_YM
+       ,TT3.GRADE_NUM
+       ,DECODE(TT3.GRADE_NUM,NULL,100,TT3.GRADE_NUM) AS T_GRADE_NUM
+FROM TABLE_2 TT2
+     ,TABLE_3 TT3
+WHERE TT2.ACAD_ABILITY = TT3.ACAD_ABILITY(+);
+
+--[PAGE72][OUT JOIN의 올바른 예_2]
+SELECT T1.SABUN
+       ,NAME
+       ,AGE
+       ,PHONE
+       ,T2.SABUN
+       ,T2.ACAD_ABILITY
+       ,MAJOR_STUDY
+       ,GRAT_YM
+       ,T2.ACAD_ABILITY
+       ,T2.GRADE_NUM
+FROM TABLE_1 T1
+     ,(
+     SELECT TT2.SABUN
+            ,TT2.ACAD_ABILITY
+            ,TT2.MAJOR_STUDY
+            ,TT2.GRAT_YM
+            ,TT3.GRADE_NUM
+            ,DECODE(TT3.GRADE_NUM,NULL,100,TT3.GRADE_NUM) AS T_GRADE_NUM
+     FROM TABLE_2 TT2
+          ,TABLE_3 TT3
+     WHERE TT2.ACAD_ABILITY = TT3.ACAD_ABILITY(+)     
+     ) T2
+WHERE T1.SABUN = T2.SABUN(+);
+

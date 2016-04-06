@@ -1,0 +1,51 @@
+
+
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~
+js_07_object_05_String_1.html
+~~~~~~~~~~~~~~~~~~~~~~~~~
+	=>String 객체의 메소드, 속성변수를 이용하여 문자열을 관리한다.
+	=>문자열은 모든 프로그램에서 중요시 하므로 문자열 관련 함수, 객체 등은
+	    주의 깊게 숙지한다.
+--->
+<html>
+	<body>
+		<script> 
+			//~~~~~~~~~~~~~~~~~~~~~
+			// 문자열을 관리하는 String 객체 생성
+			//~~~~~~~~~~~~~~~~~~~~~
+
+
+			var str = "Made In Korea";
+
+
+
+
+			// var str = new String("Made In Korea"); 와 동일 
+
+			document.write( str.substring(8, 11) + "<br>" ); 
+			document.write( str.substr(8, 3) + "<br>" ); 
+			document.write( str.charAt(8) + "<br>" );         // 인덱스번호에 해당하는 문자 리턴
+			document.write( str.indexOf("K") + "<br>" );      // 문자의 위치값 리턴
+
+			document.write( Math.max(10, 20, 6) + "<br>" ); // 최대값 리턴
+			document.write( Math.min(10, 20, 6) + "<br>" ); // 최소값 리턴
+			document.write( Math.ceil(7.1) + "<br>" );  // 좌표에서 오른쪽에서 가까운 정수 리턴
+			document.write( Math.floor(7.8) + "<br>" ); // 좌표에서 왼쪽에서 가까운 정수 리턴
+			document.write( Math.abs(-7) + "<br>" ); 
+			document.write( "------------------------------<br>" ); 
+
+			/*document.write( str.big( ) + "<br>" );
+			document.write( str.small( ) + "<br>" );
+			document.write( str.blink( ) + "<br>" );
+			document.write( str.bold( ) + "<br>" );
+			document.write( str.italics( ) + "<br>" );
+			document.write( str.strike( ) + "<br>" );
+			document.write( str.sub( ) + "<br>" );
+			document.write( str.sup( ) + "<br>" );
+			document.write( str.fontcolor("red") + "<br>" );
+			document.write( str.fontsize(7) + "<br>" );*/
+
+		</script>
+	</body>
+</html>

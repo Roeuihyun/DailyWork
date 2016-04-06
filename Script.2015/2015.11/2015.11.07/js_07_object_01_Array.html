@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<!------------------------------------------
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+js_07_object_01_Array.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1차원 Array 객체 예제.
+
+------------------------------------------>
+<html>
+<meta charset="UTF-8">
+<body>
+
+  <script>
+		//==============================================
+		// 다수의 데이터를 저장하여 관리하는 1차원 Array 객체 생성. 
+		//==============================================
+		var students = new Array( 90, 80, 60 );
+		//----------
+		// 1차원 Array 객체에 데이터 추가
+		//----------
+		students.push( 90 );  
+		//students[4] = "신데렐라";
+		//----------
+		// 반복문과 배열변수 인덱스번호를 이용해 배열변수의 데이터를 출력
+		//----------
+		document.write( "students 객체의 데이터 => " );
+		for( var i=0 ; i<students.length ; i++ ){
+			document.write( students[i] + " " );
+		}
+		document.write( "<br>" );
+		//----------
+		// join( ) 메소드 이용해 배열변수의 데이터를 붙여 출력
+		//----------
+		document.write( "students 객체의 데이터 => " + students.join(" ") + "<br>" );
+
+		//----------
+		// pop( ) 메소드 이용해 배열변수의 데이터를 역순으로 데이터를 오려내서 리턴
+		//----------
+		document.write( "students 객체의 데이터 => " );
+		while( students.length>0  ){
+			document.write( students.pop( ) + " " );  // pop( ) => 1차원 Array 객체에서 역순으로 데이터를 오려내서 리턴
+		}
+		document.write( "<br>" );
+		document.write( "students 객체의 변수 총개수 : " + students.length + "<hr>" );
+
+		//==============================================
+		// 1차원 Array 객체 생성. 
+		//==============================================
+		var students2 = new Array( 90, 80, 60 );
+		document.write( "students2 객체의 데이터 => " + students2.join(",") + "<br>" );
+		//------
+		var language = students2.slice( 0, 2 );    // 1차원 Array 객체에서 인덱스번호 0부터~(2-1)까지 데이터를 카피해서 1차원 Array 객체로 리턴
+		document.write( "language 객체의 데이터 => " + language.join(",") + "<br>" );
+		//------
+		var math = students2.splice( 2, 1 );    // 1차원 Array 객체에서 [인덱스번호] 2부터 1개 오려내서 1차원 Array 객체로 리턴
+		document.write( "math 객체의 데이터 => " + math.join(",") + "<br>" );
+		//------
+		document.write( "students2 객체의 데이터 => " + students2.join(",") + "<br>" );
+
+		//==============================================
+		// 1차원 Array 객체 생성
+		//==============================================
+		document.write( "<hr>" );
+		var students3 = [9, 11, 97, 20];
+		document.write( "초기 students3 객체의 데이터 => " + students3.join(",") + "<br>" );
+		//----------
+		// 1차원 Array 객체가 소유한 데이터를 문자열로 취급해 오름 차순으로 정렬
+		students3.sort( );
+		document.write( "sort( ) 호출후 students3 객체의 데이터 => " + students3.join(",") + "<br>" );
+
+
+
+		var s_name = ["사오순", "저팔순", "손오공", "코난", "최홍만"];
+		var tall = [160, 158, 171, 170, 228];
+		var tmp1 = "";
+		var tmp2 = "";
+		for(var i = 0; i<tall.length-1; i++){
+			for(var j =i+1; j<tall.length; j++){
+				
+				if(tall[i] < tall[j]){
+					tmp1 = tall[i];
+					tall[i] = tall[j];
+					tall[j] = tmp1;
+					
+					tmp2 = s_name[i];
+					s_name[i] = s_name[j];
+					s_name[j] = tmp2;
+					
+				}
+				
+			}
+			
+		}
+		
+// 		for(var i=0; i < tall.length-1 ; i++){
+// 			for(var j=0; j < tall.length-1; j++){
+// 				if(tall[j] < tall[j+1]){
+// 					tmp1 = tall[j];
+// 					tall[j] = tall[j+1];
+// 					tall[j+1] = tmp1;
+// 					tmp2 = s_name[j];
+// 					s_name[j] = s_name[j+1];
+// 					s_name[j+1] = tmp2;
+// 				}				
+// 			}
+// 		}
+		
+		
+
+		document.write( "<hr>" );
+		document.write( s_name.join(",") + "<br>" );
+		document.write( "<hr>" );
+
+
+
+		var s =[
+		        [1,"사오순",70]
+		        ,[2,"저팔순",30]
+		        ,[3,"손오공",60]
+		        ,[4,"삼장법사",40]
+		        ];
+
+// 		for(var i=0; i<s.length-1;i++){
+// 			for(var j=i+1; j<s.length; j++){
+// 				if(s[i][2]>s[j][2]){
+// 					tmp1 = s[i];
+// 					s[i] = s[j];
+// 					s[j] = tmp1;
+// 				}
+// 			}
+// 		}
+		
+		
+		for(var i=0; i<s.length;i++){
+			for(var j=0; j<s.length-1; j++){
+				if(s[j][2]>s[j+1][2]){
+					tmp1 = s[j];
+					s[j] = s[j+1];
+					s[j+1] = tmp1;
+				}
+			}
+		}
+		
+		console.log(s);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		//----------
+		// 1차원 Array 객체가 소유한 데이터를 오름 차순으로 정렬
+		students3.sort( function(left, right) {
+			return left - right;   // 0번 데이터-1번 데이터>0 면 순서 바꿈.  0번 데이터-2번 데이터>0 면 순서 바꿈. ~)
+			                          // 만약  return right-left; 면 내림차순으로 정렬
+		});
+		document.write( "sort( function(left, right) { return left - right;} ); 호출후 students3 객체의 데이터 => " + students3.join(",") + "<br>" );
+		//----------
+		// 1차원 Array 객체가 소유한 데이터를 내림 차순으로 정렬
+		students3.sort( function(left, right) {
+			return right - left;  
+		});
+		document.write( "sort( function(left, right) { return right - left;} ); 호출후 students3 객체의 데이터 => " + students3.join(",") + "<br>" );
+
+		for( var i in students3){
+			document.write( students3[i] + " " );
+		}
+
+		//==============================================
+		// 1차원 Array 객체 생성
+		//==============================================
+		var arrAge = [52, 45, 19, 15];
+		//----------
+		// splice(~) 메소드를 사용한 데이터 제거
+		//----------
+		document.write( "<hr>" );
+		for( var i=0 ; i<arrAge.length ; i++ ){
+			if( arrAge[i]<20 ) {
+				arrAge.splice( i, 1 ); i--;
+			}
+		}
+		document.write( "arrAge 객체의 데이터 => " + arrAge.join(",") + "<br>" );
+
+		//==============================================
+		// 1차원 Array 객체 생성
+		//==============================================
+		var arrNo = new Array( 3 ); // <주의>var 객참변수 = new Array( 정수 ); 
+												// 정수 숫자가 저장되는게 아니라 변수 개수을 [정수]개 만큼 생성하란 의미.
+												// 변수만 만든 상태이므로 변수에는 undefined 저장
+		document.write( "<hr>arrNo 객체의 데이터 => " );
+		for( var i=0 ; i<arrNo.length ; i++ ){
+			document.write( arrNo[i] + " " );
+		}
+		document.write( "<br>" );
+		document.write( "arrNo 객체의 변수 총개수 => " + arrNo.length  );
+
+  </script>
+
+</body>
+</html>
+
+
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<문>위  1차원 1차원 Array 객체의 상상도를 그리면?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+<문>i--; 를 생략하면 왜 츨력이 잘못되나?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	=>splice( ~ ) 메소드로 변수를 지우면 다음 변수가 댕겨지므로 인덱스번호 증가 전에 한번 감소 시켜야한다.
+--->
+
+
+
+
+

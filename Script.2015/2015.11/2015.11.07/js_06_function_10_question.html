@@ -1,0 +1,88 @@
+<!--
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+js_06_function_10_함수문제.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	<1단계>prompt 상자가 띄우고  [아이디] 입력
+	------------------------------
+	<2단계>[아이디] 가 "abc" 일경우 <3단계> 이동.
+			  2회 까지 아닐 경우 <1단계>로 이동. 
+			  3회 까지 아닐 경우 웹화면에 "로그인 실패" 출력하고 중단.
+	------------------------------
+	<3단계>prompt 상자가 띄우고 [암호] 입력 
+	------------------------------
+	<4단계>[암호] 가 "123" 일경우 <5단계> 이동.
+			  2회 까지 아닐 경우 <3단계>로 이동. 
+			  3회 까지 아닐 경우 웹화면에 "로그인 실패" 출력하고 중단.
+	------------------------------
+	<5단계>웹화면에 "로그인 성공..." 출력
+-->
+
+
+
+
+
+
+
+
+
+<html>
+ <head>
+  <meta charset="UTF-8">
+  <title> New Document </title>
+  <script src="jquery-1.6.2.min.js" type="text/javascript"></script>
+  <script>
+	var cnt1 = 0;
+	var cnt2 = 0;
+	var lastChance=3;
+	
+	function check_id( ){
+		var id = prompt("아이디 입력 요망");
+
+		if(id!="abc"){
+			cnt1 ++;
+			if(cnt1 == lastChance){
+				alert("로그인 실패");
+			}else{
+				check_id();
+			}
+		}
+	}
+	
+	function check_pw( ){
+		var pw = prompt("암호 입력 요망");
+		
+		if(pw!="123"){
+			cnt2 ++;
+			if(cnt2 == lastChance){
+				alert("로그인 실패");
+			}else{
+				check_pw();
+			}
+		}
+		
+
+	}
+	function check( ){
+		check_id( );
+		
+		if(cnt1 == lastChance){
+			return ;
+		}
+		check_pw( );
+		
+		if(cnt2 == lastChance){
+			return ;
+		}
+		
+		document.write("로그인 성공...."); 
+	}
+	check( );
+  </script>
+
+
+ </head>
+
+ <body>
+  
+ </body>
+</html>

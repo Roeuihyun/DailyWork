@@ -1,0 +1,40 @@
+Spring & Testing& Short Circuit Evaluation
+
+-Spring
+
+property placeholder
+log - 필요한 정보를 획득하기 위해 사용
+내가 원하는 형태의 파일 콘솔로 남길 수 있고 5~6단계 등급으로 나눌 수 있다.
+appender, layout
+debug 로그 레벨로 해두면 그걸로 테스트를 하고 실 서버 반영에서는 debug를 끈다.
+%d 날짜, %p 로그레벨, %c 클래스명, %m 메시지문자열, %n 줄바꿈, %F파일명, %I caller의 정보, %L caller의 라인수, %M 메소드명
+
+-Testing
+
+(고객)요구사항 -> 설계-> 구현(코딩) ->Test
+
+1.테스트란 무엇이며 왜하는가?
+(1)고객의 시스템운영을 하면 사고가 발생하게 되는데 그걸 차단하는게 목적
+(2)테스트란 소프트웨어의 결함과 문제를 식별, 품질을 평가하여 품질을 개선하기 위한 방법
+
+2. 테스트는 꼭 해야하나? 수행하지 않으면 어떤 결과가?
+- 테스트 꼭해야하는 이유는 차가 에어백테스트랑 충격 테스트를 하는데 이게 없으면 안그래도 차사고가 위험한데 죽음과 직결된다. 
+
+3. 테스트를 잘하려면 향후 이렇게 해야 한다.
+- 경계값 관련된 단위 테스트를 먼저 진행하고, 시나리오를 구성해서 통합 시나리오 테스트를 진행하고, 고객과의 베타테스트를 진행한다.
+
+-Short Circuit Evaluation
+
+﻿A && B
+
+T T T
+T F F
+F T F <- Short Circuit 적용
+F F F <- Short Circuit 적용
+
+
+A || B
+T T T <- Short Circuit 적용
+T F F <- Short Circuit 적용
+F T T
+F F F

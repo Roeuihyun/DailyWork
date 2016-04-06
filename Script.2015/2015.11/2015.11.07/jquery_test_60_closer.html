@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<script type="text/javascript" src="jquery-1.6.2.min.js"></script>
+	<script type="text/javascript">
+// 		var no = 0;
+		function setButton1(){
+			for(var i=1 ; i<=3; i++){
+				$(".x"+i).click(function(){
+					alert(i);
+				})
+			}	
+		}
+		
+		function setButton2(){
+			for(var i=1 ; i<=3; i++){
+				(function(){
+					var ii = i;
+					$(".y"+ii).click(function(){
+						alert(ii);
+					});
+				})();
+			}
+		}
+		
+		
+		function getFunc(){
+			var no = 0;
+			return function(){
+				document.write(++no);
+			}
+		}
+		
+		var func = getFunc();
+		func();
+		func();
+		func();
+		func();
+		
+	</script>
+</head>
+<body onload="setButton1();setButton2();">
+	<br>
+	<input type="button" value="넘버1" class="x1">
+	<input type="button" value="넘버2" class="x2">
+	<input type="button" value="넘버3" class="x3"><br><br>
+	
+	<input type="button" value="번호1" class="y1">
+	<input type="button" value="번호2" class="y2">
+	<input type="button" value="번호3" class="y3"><br><br>
+</body>
+</html>
