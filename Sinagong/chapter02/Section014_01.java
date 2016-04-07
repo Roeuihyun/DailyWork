@@ -39,8 +39,6 @@ public class Section014_01 {
 			A[14] = 'E';
 			A[15] = 'F';
 			
-			System.out.println("");
-			
 			System.out.println("변환할 진수를 먼저 입력하세요.");
 			n.append(input.readLine());
 			B = Integer.parseInt(n.toString());
@@ -58,7 +56,7 @@ public class Section014_01 {
 				D = D * B;
 			}
 			
-			
+			System.out.println(B + " 진법으로 변환시");
 			while(true){
 				
 				// 제수 D가 1보다 크면 입력받은 진수로 나누고 그게 아니면 나누지 않는다.
@@ -78,6 +76,7 @@ public class Section014_01 {
 				}
 				
 			}
+			System.out.println("");
 			System.out.println("진법 변환 완료");
 			
 			
