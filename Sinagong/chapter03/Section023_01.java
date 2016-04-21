@@ -9,9 +9,7 @@ import java.io.InputStreamReader;
 
 /**
  * @author Administrator
- * 100 건 이내의 12자리로 구성된 숫자를 더하는 순서도를 작성하시오.
- * 단, 12자리의 숫자는 각 자리가 분리되어 배열에 입력된다. 단 배열의 첫번째 요소로 0을 입력 받으면 계산 후 결과를 출력하고 프로그램을 종료한다.
- * 단, 결과값이 들어갈 배열에는 초기 값으로 0이 들어 있다고 가정한다.
+ * 10개의 수치 자료를 입력 받아 배열에 저장한 후 저장된 자료를 오름차순으로 정렬하는 순서도를 작성하시오.
  * 
  * 
  */
@@ -24,9 +22,61 @@ public class Section023_01 {
 		
 		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 		StringBuffer n = new StringBuffer();
+		int DATA[] = new int[10];
+		int M = 0; // 입력받는 숫자의 개수가 저장될 변수
+		int i = 0; // 정렬 회전 수, 비교 기준 값이 있는 위치를 지정해 주는 변수, 즉 i는 0~8까지 차례로 변경된다.
+		int J = 0; // 비교 대상이 있는 위치를 지정해 주는 변수, 즉 J는 0~9까지 차례로 변경된다.
+		int K = 0; // 자료를 교환할때 사용할 임시 변수
+		int X = 0; // 정렬된 숫자의 출력시 배열의 위치를 지정해 주는 변수
 		
 		try {
-			n.append(input.readLine());
+			while(true){
+				System.out.println((M+1)+"번째 숫자를 입력해 주세요.");
+				n.append(input.readLine());
+				DATA[M] = Integer.parseInt(n.toString());
+				n.delete(0, n.length());
+				
+				if(M == 9){
+					break;
+				}else{
+					M = M + 1;
+				}
+			}
+			
+			while(true){
+				
+				J = 0;
+				while(true){
+					
+					if(DATA[i] > DATA[J]){
+						
+						K = DATA[i];
+						DATA[i] = DATA[J];
+						DATA[J] = K;
+						
+					}
+					
+					if(J < 9){
+						break;
+					}else{
+						J = J +1;
+					}
+					
+				}
+				
+				if(i < 8){
+					break;
+				}else{
+					i = i + 1;
+				}
+				
+			}
+			
+			for(int x = 0; x < 10; x ++){
+				System.out.print(DATA[x]+"|");
+			}
+			
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
