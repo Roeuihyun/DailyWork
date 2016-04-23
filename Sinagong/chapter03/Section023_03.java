@@ -23,20 +23,16 @@ public class Section023_03 {
 		
 		BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 		StringBuffer n = new StringBuffer();
-		int DATA[] = new int[10];
+		int A[] = new int[10]; // 정렬할 숫자가 저장될 배열
 		int M = 0; // 입력받는 숫자의 개수가 저장될 변수
-		int buf = 0; // 두 값을 교환할 때 임시로 사용할 변수
-		int SW = 0; // 자료의 교환 여부를 검사하기 위한 플래그 변수로, SW가 1이면 교환이 발생한 것이고, 0이면 교환이 발생하지 않은 것이다.
-		int Shift = 0; // 왼쪽 또는 오른쪽의 시작 위치를 지정할 변수
-		int LEFT = 0; // 왼쪽 위치가 기억될 변수
-		int RIGHT = 0; // 오른쪽 위치가 기억될 변수
-		
+		int K = 0; // 비교 대상이 있는 위치를 지정해 주는 변수, 즉 K는 i-1에서 1까지 차례로 변경된다.
+		int KEY = 0; // 비교 기준인 Key 값이 저장될 변수
 		
 		try {
 			while(true){
 				System.out.println((M+1)+"번째 숫자를 입력해 주세요.");
 				n.append(input.readLine());
-				DATA[M] = Integer.parseInt(n.toString());
+				A[M] = Integer.parseInt(n.toString());
 				n.delete(0, n.length());
 				
 				if(M == 9){
@@ -46,47 +42,27 @@ public class Section023_03 {
 				}
 			}
 			
-			LEFT = 0;
-			RIGHT = 9;
-			
-			while(true){
-				if(LEFT < RIGHT){
+			for(int i = 1; i < 10; i++){
+				KEY = A[i];
+				
+				for(int k = i -1; k >=0 ; k --){
 					
-					for(int i = LEFT ; i <= RIGHT - 1; i ++){
-						
-						if(DATA[i] > DATA[i+1]){
-							buf = DATA[i];
-							DATA[i] = DATA[i+1];
-							DATA[i+1] = DATA[i];
-							Shift = i;
-						}
-						
+					if(A[k] > KEY){
+						A[k+1] = A[k];
+						K = k;
+					}else{
+						K = k;
+						break;
 					}
-					
-					RIGHT = Shift ;
-					
-					for(int i = RIGHT ; i >= LEFT + 1; i --){
-						
-						if(DATA[i-1] > DATA[i]){
-							buf = DATA[i-1];
-							DATA[i-1] = DATA[i];
-							DATA[i] = buf;
-							Shift = i;
-						}
-						
-					}
-					
-					LEFT = Shift;
-					
-					
-				}else{
-					break;
 				}
+				
+				A[K+1] = KEY;
 			}
 			
 			for(int x = 0; x < 10; x ++){
-				System.out.print(DATA[x]+"|");
+				System.out.print(A[x]+"|");
 			}
+			
 			
 		} catch (IOException e) {
 			e.printStackTrace();
