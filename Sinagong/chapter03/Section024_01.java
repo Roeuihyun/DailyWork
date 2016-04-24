@@ -14,7 +14,7 @@ import java.io.InputStreamReader;
  * 한번은 오른쪽에서 왼쪽으로 진행하면서 최소 값을 좌측으로 보내는 방법을 반복하면서 정렬하는
  * 순서도를 작성하시오
  */
-public class Section023_03 {
+public class Section024_01 {
 
 	/**
 	 * @param args
