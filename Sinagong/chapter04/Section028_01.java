@@ -3,7 +3,6 @@
  */
 package chapter04;
 
-import java.util.Scanner;
 
 /**
  * @author Administrator
