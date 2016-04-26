@@ -9,7 +9,7 @@ package chapter04;
  * 배열10 - 대각선으로 채우기
  * 5행 5열 배열에 다음과 같이 기억시키는 순서도를 작성하시오.
  */
-public class Section036_01 {
+public class Section037_01 {
 
 	/**
 	 * @param args
