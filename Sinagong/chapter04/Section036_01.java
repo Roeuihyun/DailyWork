@@ -9,7 +9,7 @@ package chapter04;
  * 배열9 - 달팽이 만들기
  * 5행 5열 배열에 다음과 같이 기억시키는 순서도를 작성하시오.
  */
-public class Section035_01 {
+public class Section036_01 {
 
 	/**
 	 * @param args
