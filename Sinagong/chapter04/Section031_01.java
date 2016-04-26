@@ -17,7 +17,7 @@ public class Section031_01 {
 	public static void main(String[] args) {
 		
 		int A[][] = new int[5][5]; // 5행 5열의 2차원 배열 A를 선언한다.
-		int K = 0; // 1씩 증가되는 숫자가 저장될 변수, 즉 K는 1,2,3...25까지 변경된다.
+		int K = 0; // 1씩 증가되는 숫자가 저장될 변수, 즉 K는 1,2,3...13까지 변경된다.
 		int h = 2; // 열의 위치를 지정해 주는 변수
 		int S = 2; // 배열의 열 시작 위치를 지정해 주는 변수
 		int E = 2; // 배열의 열 끝 위치를 지정해 주는 변수
@@ -53,7 +53,7 @@ public class Section031_01 {
 		for(int i = 0; i < 5 ; i++){
 			System.out.println("===============");
 			for(int j = 0; j < 5 ; j++){
-				System.out.print(A[i][j] + "|");
+				System.out.print(String.format("%02d",A[i][j]) + "|");
 			}
 			System.out.println();
 			if(i == 4){
