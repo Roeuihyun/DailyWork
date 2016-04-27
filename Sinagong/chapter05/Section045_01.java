@@ -21,12 +21,9 @@ public class Section045_01 {
 	 */
 	public static void main(String[] args) {
 		
-		int i = -1; // 사과의 개수가 저장될 변수, 즉 i는 1부터 조건에 맞는 수가 될 때까지 차례로 변경된다.
+		int i = 0; // 사과의 개수가 저장될 변수, 즉 i는 1부터 조건에 맞는 수가 될 때까지 차례로 변경된다.
 		int j = 0; // 계산에 사용될 사과의 개수가 저장될 변수, 즉 J는 i를 그대로 받아서 계산한다.
 		int NMG = 0; // 사과의 개수를 4등분하고 남은 나머지가 저장될 변수
-		
-		i = i + 1;
-		j = i;
 		
 		appleLable:
 		while(true){
@@ -56,7 +53,7 @@ public class Section045_01 {
 			}
 			
 		}
-		System.out.println(i);
+		System.out.println("최초의 사과의 갯수는 :" + i);
 		
 	}
 }
