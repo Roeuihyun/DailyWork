@@ -13,7 +13,6 @@ public class TopThisMain {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		TopThis t1 = new TopThis();
 		System.out.println(t1);
 		t1.printSelf();

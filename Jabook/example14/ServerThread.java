@@ -30,13 +30,11 @@ public class ServerThread extends Thread {
 	}
 
 	private void init() {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	public void sendMsg(String msg) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 }

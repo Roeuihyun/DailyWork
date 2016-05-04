@@ -13,7 +13,7 @@ public class NumberRange {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+
 		System.out.println("byte range : " + Byte.MIN_VALUE + "~" + Byte.MAX_VALUE);
 		System.out.println("short range : " + Short.MIN_VALUE + "~" + Short.MAX_VALUE);
 		System.out.println("int range : " + Integer.MIN_VALUE + "~" + Integer.MAX_VALUE);

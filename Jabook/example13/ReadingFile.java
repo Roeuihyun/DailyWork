@@ -7,8 +7,7 @@ import java.io.InputStream;
 public class ReadingFile {
 
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-		
+
 		int content = 0;
 		
 		InputStream input = new FileInputStream("sample.dat");

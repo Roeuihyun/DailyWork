@@ -5,8 +5,7 @@ import java.io.IOException;
 public class InputStreamEx2 {
 
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-		
+
 		byte[] bytes = new byte[10];
 		
 		java.io.InputStream in = System.in;

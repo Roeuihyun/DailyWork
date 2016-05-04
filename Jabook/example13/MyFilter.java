@@ -9,15 +9,13 @@ public class MyFilter implements FilenameFilter {
 	private String fileExt;
 
 	public MyFilter(String keyword, String fileExt) {
-		// TODO Auto-generated constructor stub
 		this.keyword = keyword;
 		this.fileExt = fileExt;
 		
 	}
 
 	public boolean accept(File dir, String fileName) {
-		// TODO Auto-generated method stub
-		
+
 		if(fileExt.equals("all"))
 			fileExt="\\w*";
 		

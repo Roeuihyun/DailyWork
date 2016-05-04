@@ -13,7 +13,7 @@ public class ScaleExample {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+
 		int decimal = 12;
 		int hexadecimal = 0xc;
 		int octet = 014;

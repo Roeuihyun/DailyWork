@@ -8,8 +8,7 @@ import java.io.OutputStream;
 public class OutputStreamEx1 {
 
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-		
+
 		File file = new File("sample2.dat");
 		
 		OutputStream os = new FileOutputStream(file);

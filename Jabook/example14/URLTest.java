@@ -8,8 +8,7 @@ import java.net.URL;
 public class URLTest {
 
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-		
+
 		URL url = new URL("http","www.google.co.kr",80,"/index.html");
 		
 		InputStream in = url.openStream();
