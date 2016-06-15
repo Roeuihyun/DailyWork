@@ -1,25 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="Example">
+	<classpathentry kind="src" path="example">
 		<attributes>
 			<attribute name="ignore_optional_problems" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="Jabook">
+	<classpathentry kind="src" path="jabook">
 		<attributes>
 			<attribute name="ignore_optional_problems" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="ProgrammingMaster">
+	<classpathentry kind="src" path="programmingMaster">
 		<attributes>
 			<attribute name="ignore_optional_problems" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="Sinagong">
+	<classpathentry kind="src" path="sinagong">
 		<attributes>
 			<attribute name="ignore_optional_problems" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="src" path="algorithm">
+		<attributes>
+			<attribute name="ignore_optional_problems" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
