@@ -1,5 +1,6 @@
+package level3;
+
 import java.util.Arrays;
-import java.util.stream.IntStream;
 
 
 
@@ -22,72 +23,23 @@ import java.util.stream.IntStream;
 public class NoOvertime {
 	
 	public int noOvertime(int no, int[] works) {
-		// 야근 지수를 최소화 하였을 때의 야근 지수는 몇일까요?
-		System.out.println("no:"+no);
-		System.out.println("Arrays.toString(works): "+Arrays.toString(works));
-		int mok = (Arrays.stream(works).sum() - no) / works.length;
-		final int finalMok = mok;
-		int nmg = (Arrays.stream(works).sum() - no) % works.length;
-		System.out.println("mok:"+mok);
-		System.out.println("nmg:"+nmg);
-		nmg += (int) (Arrays.stream(works).filter(factor -> factor >= finalMok).sum() - no) % Arrays.stream(works).filter(factor -> factor >= finalMok).count();
-		System.out.println("nmg:"+nmg);
-		System.out.println("Arrays.stream(works).filter(factor -> factor >= finalMok).count():" + Arrays.stream(works).filter(factor -> factor >= finalMok).count());
-		if(nmg >= Arrays.stream(works).filter(factor -> factor >= finalMok).count()){
-			mok++;
-			nmg -= Arrays.stream(works).filter(factor -> factor >= finalMok).count();
-		}
-		final int finalmok2 = mok;
-		System.out.println("nmg:"+nmg);
-		int[] overWorksAverage = Arrays.stream(works).filter(factor -> factor >= finalmok2).toArray();
-		System.out.println("overWorksAverage :"+Arrays.toString(overWorksAverage));
-		works = IntStream.concat(Arrays.stream(works)
-								.filter(factor -> factor >= finalmok2)
-								.map( factor -> factor = (int) (Arrays.stream(overWorksAverage).sum() - no) / (overWorksAverage.length) )
-								,Arrays.stream(works)
-								.filter(factor -> factor < finalmok2) 
-																		 ).toArray();
-		System.out.println("works"+Arrays.toString(works));
-		if(nmg != 0){
-			int i = 0;
-//			nmg = finalmok2 - nmg;
-			while(true){
-				works[i] += 1;
-				i++;
-				nmg--;
-				if(nmg == 0){
+		
+		for(int i = 1; i <= no; i ++){
+			for(int j = 0; j < works.length ; j ++){
+				if(works[j] == Arrays.stream(works).max().getAsInt()){
+					works[j] -= 1;
 					break;
 				}
 			}
-			
 		}
-		System.out.println("works"+Arrays.toString(works));
+		System.out.println("works : "+Arrays.toString(works));
 		return Arrays.stream(works).map(factor -> (int)(Math.pow(factor, 2))).sum();
 	}
 	
-//		double overWorksTargetRemainder = (Arrays.stream(overWorksAverage).sum() - no) % (overWorksAverage.length);
-//		double worksAverage = (int)(Arrays.stream(works).average()).getAsDouble();
-//		int[] checkRedo = Arrays.stream(underWorksAverage).filter(factor -> factor > compare).toArray();
-//		
-//		if(checkRedo.length > 0){
-//			overWorksTargetRemainder += (int) (Arrays.stream(checkRedo).sum() - overWorksTargetQuotient * checkRedo.length);
-//			if(overWorksTargetRemainder >= overWorksTargetQuotient){
-//				overWorksTargetQuotient++;
-//			}
-//			
-//		}
 	public static void main(String[] args) {
 		NoOvertime c = new NoOvertime();
-//		int []test = {4,3,3};
-//		System.out.println(c.noOvertime(4,test));
-//		expected:<585> but was:<581>
-//		int []test = {16, 11, 8, 18, 17, 15};
-//		System.out.println(c.noOvertime(26,test));
-//		expected:<197> but was:<333>
-		int []test = {18, 9, 16, 8, 6, 10, 7};
-		System.out.println(c.noOvertime(37,test));
-//		expected:<409> but was:<477>
-//		int []test = {12, 19, 15, 5, 10, 17, 12};
-//		System.out.println(c.noOvertime(37,test));
+		int []test = {16, 11, 8, 18, 17, 15};
+		System.out.println(c.noOvertime(26,test));
+		System.out.println("expected:<585> but was:<581>");
 	}
 }
