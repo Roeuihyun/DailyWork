@@ -21,20 +21,9 @@ class LineCombination {
 		perm(arr, 0, n, n );
 		Collections.sort(list, new Comparator<int[]>() {
 		    public int compare(int[] prev, int[] next) {
-		    	int result = 0;
-		    	
-		    	for(int i = 0; i < prev.length - 2 ; i++){
-		    		if(prev[i] == next[i]){
-		    			result = prev[i+1] - next[i+1];
-		    		}
-		    	}
-		    	
-		    	return result;
+		    	return Integer.parseInt(Arrays.toString(prev).replaceAll("\\D+","")) - Integer.parseInt(Arrays.toString(next).replaceAll("\\D+",""));
 		    }
 		});
-		for(int i = 0; i < list.size(); i++){
-			System.out.println(Arrays.toString(list.get(i)));;
-		}
 		return list.get((int) (k - 1));
 	}
 	
@@ -50,6 +39,7 @@ class LineCombination {
 			swap(arr,i,depth);
 		}
 	}
+	
 	public static void swap(int[] arr, int from , int to){
 		arr[from] = arr[from] ^ arr[to] ^ (arr[to] = arr[from]); //swap
 	}
