@@ -3,7 +3,6 @@
  */
 package level5;
 
-import java.math.BigInteger;
 
 /**
  * @author Administrator
@@ -23,50 +22,18 @@ import java.math.BigInteger;
  */
 public class OneTwoFour {
    
-	public String change124(int n) {
-		String answer = "";
-		int answerMok = 0;
-		int mok = 0;
-		int nmg = 0;
-		
-		for(int i = 0; i < n; i ++){
-			if(threePowSum(i).intValue()>= n){
-				answerMok = i;
-				break;
-			}
-		}
-		System.out.println("answerMok:"+answerMok);
-//		n = (int) (n - threePow(answerMok - 1).intValue());
-		System.out.println("n:"+n);
-		for(int i = answerMok-1; i >= 0 ; i--){
-			mok = (int) (n - threePow(answerMok - i).intValue());
-			nmg = (int) (n % threePow(answerMok - i).intValue());
-			System.out.println("mok:"+mok);
-			System.out.println("nmg:"+nmg);
-			if(threePow(answerMok - i - 1).intValue() == 0){
-				answer += "1";
-			}else if(threePow(answerMok - i - 1).intValue() == 1){
-				answer += "2";
-			}else if(threePow(answerMok - i - 1).intValue() == 2){
-				answer += "4";
-			}
-			n = nmg;
-		}
-		
-//		System.out.println(threePow(answerMok - 1).intValue());
-		return answer;
-	}
-  
-  	public static BigInteger threePowSum(int n){
-		if(n == 0)return new BigInteger("0");
-		return new BigInteger("3").pow(n).add( threePowSum(n - 1) ) ;
-	}
-  
-  	public static BigInteger threePow(int n){
-		return new BigInteger("3").pow(n);
-	}
+    public String change124(int n) {
+        String answer = "";
+        int nmg = 0;
+        if (n > 0) {
+            nmg = n % 3;
+            answer = ((nmg == 0) ? "4" : (nmg == 1) ? "1" : "2") + answer;
+            answer = change124( (n - 1) / 3) + answer;
+        }
 
-    
+        return answer;
+    }   
+
     // 아래는 테스트로 출력해 보기 위한 코드입니다.
     public static void main(String[] args) {
         OneTwoFour oneTwoFour = new OneTwoFour();
