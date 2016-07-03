@@ -3,6 +3,8 @@
  */
 package level6;
 
+import java.math.BigInteger;
+
 
 /**
  * @author roeuihyun
@@ -30,7 +32,7 @@ class Tiling {
 		
 		int result = getTileCount(n);
 		String resultStr = String.valueOf(result);
-		
+		System.out.println(resultStr);
 		if(resultStr.length() > 6){
 			result = Integer.parseInt(resultStr.substring(resultStr.length()-5,resultStr.length()));
 		}else{
@@ -41,9 +43,49 @@ class Tiling {
 	}
 	
 	public static int getTileCount(int n){
-		if(n == 0) return 1;
-		return (int) (Math.pow(2, n - 1) + getTileCount(n - 2));
+		BigInteger result = new BigInteger("1");
+		if(n == 2){
+			return 3;
+		}
+		for(double i = 1; i < n/2; i ++){
+			result = result.add(factorial((double)n).divide(factorial(i)));
+		}
+		return result.add(new BigInteger("2").pow(n/2)).intValue();
 	}
+	
+//	public static int getTileCount(int n){
+//	    
+//		int result = 0;
+//		for(int i = (n/2)-1; i > 0; i --){
+//			result += Math.pow(2,i) * Math.pow(3, i - 1);
+//		}
+//		
+//		return (int) (Math.pow(3, (n/2) ) + result);
+//	}
+	
+//	public static int getTileCount(int n){
+//		int result = 0;
+//		for(int i = 0 ; i <= (n/2 -2)  ; i ++ ){
+//			result += (i + 1) * Math.pow(3, i);
+//		}
+//		return (int) (Math.pow(3, n/2) + 2 * result);
+//	}
+	
+//    public static double factorial(int n) {
+//    	double result = 1;
+//        for (int i = 1; i <= n; i++) {
+//            result *= i;
+//        }
+//        return result;
+//    }
+	
+    public static BigInteger factorial(double n) {
+    	BigInteger result = new BigInteger("1");
+        for (int i = 1; i <= n; i++) {
+        	result = result.multiply(new BigInteger( Integer.toString(i) ));
+        }
+        return result;
+    }
 
 	// 아래는 테스트로 출력해 보기 위한 코드입니다.
 	public static void main(String[] args) {
